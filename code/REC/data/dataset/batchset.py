@@ -46,7 +46,7 @@ class BatchTextDataset(Dataset):
         def process_item(item):
             if item != self.item_list[0] and item not in self.env:
                 self.logger.info(f"{item} not in self.env")
-            item_i = self.env.get(item, {})
+            item_i = self.env.get(item, {}) # get dictionary of text 
             text_str = ""
             if len(item_i):
                 text_str = f"{self.item_prompt}"
@@ -54,7 +54,7 @@ class BatchTextDataset(Dataset):
                     value = item_i[key]
                     if value and str(value) != 'nan':
                         text_str += f"{key}: {value}"
-
+            # print(f"{text_str}\n") ### 
             ids = self.tokenizer.encode(text_str)
             ids = ids[:self.max_text_length]
             mask = [1] * len(ids)

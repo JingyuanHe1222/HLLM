@@ -186,6 +186,9 @@ class Trainer(object):
         for batch_idx, data in enumerate(train_data):
             start_time = bwd_time
             self.optimizer.zero_grad()
+
+            # print("batch_idx: ", batch_idx)
+            
             data = self.to_device(data)
             data_time = t.time()
             losses = self.model(data)
@@ -194,10 +197,17 @@ class Trainer(object):
                 model_out = losses
                 losses = model_out.pop('loss')
             self._check_nan(losses)
-            total_loss = total_loss + losses.item()
             self.lite.backward(losses)
             grad_norm = self.optimizer.step()
+            data = self.custom_to_device(data, "cpu")
+            del data
+            model_out = self.custom_to_device(model_out, "cpu")
+            losses = losses.detach().cpu()
+            total_loss = total_loss + losses.item()
             bwd_time = t.time()
+
+            # print(torch.cuda.mem_get_info(self.device)) ###
+
             if self.scheduler_config:
                 self.lr_scheduler.step()
             if show_progress and self.rank == 0 and batch_idx % self.update_interval == 0:
@@ -209,9 +219,11 @@ class Trainer(object):
                         msg += f" {k}: {v:.3f}"
                 if grad_norm:
                     msg = msg + f" grad_norm: {grad_norm.sum():.4f}"
+                    del grad_norm
                 pbar.set_postfix_str(msg, refresh=False)
                 pbar.update(self.update_interval)
                 self.logger.info("\n" + "-"*50)
+                self.logger.info(msg)
             if self.config['debug'] and batch_idx >= 10:
                 break
 
@@ -239,12 +251,34 @@ class Trainer(object):
             'cur_step': self.cur_step,
             'best_valid_score': self.best_valid_score,
             'rng_state': torch.get_rng_state(),
-            'cuda_rng_state': torch.cuda.get_rng_state()
+            'cuda_rng_state': torch.cuda.get_rng_state(), 
+            "scheduler": self.lr_scheduler
         }
 
         self.lite.save(os.path.join(self.checkpoint_dir, self.saved_model_name), state=state)
         if self.rank == 0 and verbose:
             self.logger.info(set_color('Saving current', 'blue') + f': {self.saved_model_file}')
+
+
+    def _load_checkpoint(self, path): 
+        
+        self.logger.info(f"Loading checkpoint from {path}")
+        state = {
+            "model": self.model,
+            "optimizer": self.optimizer,
+            'scheduler': self.lr_scheduler
+        }
+
+        remainder = self.lite.load(path, state)
+        self.best_valid_score = remainder.pop('best_valid_score')
+        self.cur_step = remainder.pop('cur_step')
+        torch.set_rng_state(remainder.pop('rng_state'))
+        torch.cuda.set_rng_state(remainder.pop('cuda_rng_state'))
+        epoch = remainder.pop('epoch')
+        self.start_epoch = epoch + 1
+
+        self.logger.info(f"------- started from checkpoint at: {path}\n ------- started from epoch:{self.start_epoch}")
+
 
     def _check_nan(self, loss):
         if torch.isnan(loss):
@@ -307,6 +341,20 @@ class Trainer(object):
             return data
         else:
             return data.to(device)
+        
+    def custom_to_device(self, data, device):
+        if isinstance(data, tuple) or isinstance(data, list):
+            tdata = ()
+            for d in data:
+                d = d.to(device)
+                tdata += (d,)
+            return tdata
+        elif isinstance(data, dict):
+            for k, v in data.items():
+                data[k] = v.to(device)
+            return data
+        else:
+            return data.to(device)
 
     def fit(self, train_data, valid_data=None, verbose=True, saved=True, show_progress=False, callback_fn=None):
         if self.scheduler_config:
@@ -330,7 +378,7 @@ class Trainer(object):
         self.model, self.optimizer = self.lite.setup(self.model, self.optimizer)
 
         if self.config['auto_resume']:
-            raise NotImplementedError
+            self._load_checkpoint(self.config['auto_resume'])
 
         valid_step = 0
 
@@ -348,7 +396,10 @@ class Trainer(object):
                     self.logger.info(train_loss_output)
                 if self.rank == 0:
                     self._add_train_loss_to_tensorboard(epoch_idx, train_loss)
-                self.wandblogger.log_metrics({'epoch': epoch_idx, 'train_loss': train_loss, 'train_step': epoch_idx}, head='train')
+                    try: 
+                        self.wandblogger.log_metrics({'epoch': epoch_idx, 'train_loss': train_loss, 'train_step': epoch_idx}, head='train')
+                    except: 
+                        print("wandb logging fail")
 
             if self.eval_step <= 0 or not valid_data:
                 if saved:
@@ -376,7 +427,10 @@ class Trainer(object):
                     self.tensorboard.add_scalar('Vaild_score', valid_score, epoch_idx)
                     for name, value in valid_result.items():
                         self.tensorboard.add_scalar(name.replace('@', '_'), value, epoch_idx)
-                self.wandblogger.log_metrics({**valid_result, 'valid_step': valid_step}, head='valid')
+                    try: 
+                        self.wandblogger.log_metrics({**valid_result, 'valid_step': valid_step}, head='valid')
+                    except: 
+                        print("wandb logging fail")
 
                 if update_flag:
                     if saved:
@@ -400,12 +454,12 @@ class Trainer(object):
     @torch.no_grad()
     def _full_sort_batch_eval(self, batched_data):
         user, time_seq, history_index, positive_u, positive_i = batched_data
-        interaction = self.to_device(user)
+        interaction = self.to_device(user) # the historically interacted item ids 
         time_seq = self.to_device(time_seq)
-        if self.config['model'] == 'HLLM':
+        if self.config['model'] == 'HLLM' or self.config['model'] == 'BGEHLLM':
             if self.config['stage'] == 3:
                 scores = self.model.module.predict(interaction, time_seq, self.item_feature)
-            else:
+            else: # this part 
                 scores = self.model((interaction, time_seq, self.item_feature), mode='predict')
         else:
             scores = self.model.module.predict(interaction, time_seq, self.item_feature)
@@ -417,8 +471,8 @@ class Trainer(object):
 
     @torch.no_grad()
     def compute_item_feature(self, config, data):
-        if self.use_text:
-            item_data = BatchTextDataset(config, data)
+        if self.use_text: # True 
+            item_data = BatchTextDataset(config, data) # convert to tokenized ids, etc 
             item_batch_size = config['MAX_ITEM_LIST_LENGTH'] * config['train_batch_size']
             item_loader = DataLoader(item_data, batch_size=item_batch_size, num_workers=14, shuffle=False, pin_memory=True, collate_fn=customize_rmpad_collate)
             self.logger.info(f"Inference item_data with {item_batch_size = } {len(item_loader) = }")
@@ -465,7 +519,7 @@ class Trainer(object):
                 self.lite.launch()
                 self.model = self.lite.setup(self.model)
 
-        if load_best_model:
+        if load_best_model: # false for eval()
             checkpoint_file = model_file or self.saved_model_file
             state = {"model": self.model}
             self.lite.load(checkpoint_file, state)
@@ -475,7 +529,6 @@ class Trainer(object):
         with torch.no_grad():
             self.model.eval()
             eval_func = self._full_sort_batch_eval
-
             self.tot_item_num = eval_data.dataset.dataload.item_num
             self.compute_item_feature(self.config, eval_data.dataset.dataload)
             iter_data = (
@@ -505,6 +558,9 @@ class Trainer(object):
             for k, v in result.items():
                 result_cpu = self.distributed_concat(torch.tensor([v]).to(self.device), num_total_examples).cpu()
                 result[k] = round(result_cpu.item(), metric_decimal_place)
-            self.wandblogger.log_eval_metrics(result, head='eval')
+            try: 
+                self.wandblogger.log_eval_metrics(result, head='eval')
+            except: 
+                print("wandb logging fail")
 
             return result

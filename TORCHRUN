@@ -5,7 +5,7 @@ start_time="$(date +%FT%T)"
 if [[ "$master_addr" == "" && "$master_port" == "" ]]; then
   nnodes=1
   node_rank=0
-  master_port=12345
+  master_port=56789
   nproc_per_node=${nproc_per_node:=$(nvidia-smi --list-gpus | wc -l)}
   torchrun \
   --master_port=$master_port \

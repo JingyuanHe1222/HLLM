@@ -81,10 +81,12 @@ def run_loop(local_rank, config_file=None, saved=True, extra_args=[]):
         logger.info(f"Update text_path to {config['text_path']}")
 
     # get model and data
+    print("loading data...")
     dataload = load_data(config)
     train_loader, valid_loader, test_loader = bulid_dataloader(config, dataload)
     print(f"{len(train_loader) = }")
 
+    print("getting model...")
     model = get_model(config['model'])(config, dataload)
     # model = torch.nn.SyncBatchNorm.convert_sync_batchnorm(model).to(device)
 
@@ -96,21 +98,43 @@ def run_loop(local_rank, config_file=None, saved=True, extra_args=[]):
     logger.info(dataload)
     logger.info(model)
 
+    # load ckpt 
+    ckpt_path = os.path.join(config['checkpoint_dir'], 'pytorch_model.bin')
+    if os.path.exists(ckpt_path):
+        print(f"Found checkpoint at {ckpt_path}, attempting to load...")
+        ckpt = torch.load(ckpt_path, map_location='cpu')
+        msg = trainer.model.load_state_dict(ckpt, strict=False)
+        print(f'Checkpoint loaded from {ckpt_path}')
+        print(f'{msg.unexpected_keys = }')
+        print(f'{msg.missing_keys = }')
+    else:
+        print("No checkpoint found. Starting training from scratch.")
+
+
     if config['val_only']:
         ckpt_path = os.path.join(config['checkpoint_dir'], 'pytorch_model.bin')
-        ckpt = torch.load(ckpt_path, map_location='cpu')
-        logger.info(f'Eval only model load from {ckpt_path}')
+        # ckpt_path = "/data/user_data/jingyuah/HLLM_weights/checkpoints/tiny_llama_1.1b_pixelrec_200K/HLLM-0.pth/checkpoint/mp_rank_00_model_states.pt"
+        if ckpt_path[-2:] == 'pt': 
+            ckpt_full = torch.load(ckpt_path, map_location='cpu')
+            logger.info(f'Eval only model load from {ckpt_path}')
+            ckpt = ckpt_full['module']
+        else: 
+            print(f"Found checkpoint at {ckpt_path}, attempting to load...")
+            ckpt = torch.load(ckpt_path, map_location='cpu')
+            
         msg = trainer.model.load_state_dict(ckpt, False)
+
         logger.info(f'{msg.unexpected_keys = }')
         logger.info(f'{msg.missing_keys = }')
         test_result = trainer.evaluate(test_loader, load_best_model=False, show_progress=config['show_progress'], init_model=True)
         logger.info(set_color('test result', 'yellow') + f': {test_result}')
     else:
+        print(f"local rank: {local_rank} has gpu mem: {torch.cuda.mem_get_info(device)}") ###
         # training process
         best_valid_score, best_valid_result = trainer.fit(
             train_loader, valid_loader, saved=saved, show_progress=config['show_progress']
         )
-        logger.info(f'Trianing Ended' + set_color('best valid ', 'yellow') + f': {best_valid_result}')
+        logger.info(f'Training Ended' + set_color('best valid ', 'yellow') + f': {best_valid_result}')
 
         # model evaluation
         test_result = trainer.evaluate(test_loader, load_best_model=saved, show_progress=config['show_progress'])

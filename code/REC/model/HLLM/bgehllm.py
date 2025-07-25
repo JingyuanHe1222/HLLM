@@ -27,13 +27,14 @@ from REC.model.HLLM.modeling_llama import LlamaForCausalLM
 from REC.model.HLLM.modeling_mistral import MistralForCausalLM
 from REC.model.HLLM.modeling_bert import BertModel
 from REC.model.HLLM.baichuan.modeling_baichuan import BaichuanForCausalLM
+# from transformers import XLMRobertaModel
+from REC.model.HLLM.modeling_xlm_roberta import XLMRobertaModel
 
-
-class HLLM(BaseModel):
+class BGEHLLM(BaseModel):
     input_type = InputType.SEQ
 
     def __init__(self, config, dataload):
-        super(HLLM, self).__init__()
+        super(BGEHLLM, self).__init__()
         self.logger = getLogger()
 
         self.item_pretrain_dir = config['item_pretrain_dir']
@@ -41,9 +42,10 @@ class HLLM(BaseModel):
         self.gradient_checkpointing = config['gradient_checkpointing']
         self.use_ft_flash_attn = config['use_ft_flash_attn']
         self.logger.info(f"create item llm")
-        self.item_llm = self.create_llm(self.item_pretrain_dir, config['item_llm_init'])
+        self.item_llm = self.create_item_llm(self.item_pretrain_dir, config['item_llm_init'])
         self.logger.info(f"create user llm")
         self.user_llm = self.create_llm(self.user_pretrain_dir, config['user_llm_init'])
+
         self.item_emb_token_n = config['item_emb_token_n'] # 1
         if self.item_emb_token_n > 1:
             raise NotImplementedError(f"Not support item_emb_token_n {self.item_emb_token_n} > 1")
@@ -58,6 +60,7 @@ class HLLM(BaseModel):
                 self.logger.info(f"load item_emb_token from {config['item_emb_pretrain']} with {ckpt.size()}")
                 self.item_emb_tokens.data = nn.Parameter(ckpt)
         else:  # mean pooling
+            self.logger.info(f"No embed token inserted, mean pooling")
             self.item_emb_tokens = None
 
         self.loss = config['loss']
@@ -74,6 +77,54 @@ class HLLM(BaseModel):
             msg = self.load_state_dict(state_dict, strict=False)
             self.logger.info(f"{msg.missing_keys = }")
             self.logger.info(f"{msg.unexpected_keys = }")
+
+        if config['adapter']: 
+            in_dim, out_dim = config['adapter'][0], config['adapter'][1]
+            self.adapter = nn.Linear(in_dim, out_dim)
+            self.logger.info(f"adapter between item LLM and user LLM of shape {in_dim}, {out_dim}")
+        else:   
+            self.adapter = None
+
+
+    def create_item_llm(self, pretrain_dir, init=True): 
+        self.logger.info(f"******* create item LLM {pretrain_dir} *******")
+        hf_config = AutoConfig.from_pretrained(pretrain_dir, trust_remote_code=True)
+        self.logger.info(f"hf_config: {hf_config}")
+        hf_config.gradient_checkpointing = self.gradient_checkpointing
+        hf_config.use_cache = False
+        hf_config.output_hidden_states = True
+        hf_config.return_dict = True
+
+        self.logger.info("xxxxx starting loading checkpoint")
+        if isinstance(hf_config, transformers.BertConfig): 
+            hf_config.use_ft_flash_attn = self.use_ft_flash_attn
+            self.logger.info(f'Using flash attention {hf_config.use_ft_flash_attn} for bert')
+            self.logger.info(f'Init {init} for bert')
+            if init:
+                return BertModel.from_pretrained(pretrain_dir, config=hf_config)
+            else:
+                return BertModel(config=hf_config).cuda()
+        elif isinstance(hf_config, transformers.MistralConfig):
+            hf_config.use_ft_flash_attn = self.use_ft_flash_attn
+            self.logger.info(f'Using flash attention {hf_config.use_ft_flash_attn} for mistral')
+            self.logger.info(f'Init {init} for mistral')
+            if init:
+                return MistralForCausalLM.from_pretrained(pretrain_dir, config=hf_config)
+            else:
+                return MistralForCausalLM(config=hf_config).cuda()
+        elif isinstance(hf_config, transformers.XLMRobertaConfig):
+            hf_config.use_ft_flash_attn = self.use_ft_flash_attn
+            if self.use_ft_flash_attn: 
+                hf_config._attn_implementation = "flash_attention_2"
+            else: 
+                hf_config._attn_implementation = "eager"
+            self.logger.info(f'Using flash attention {hf_config.use_ft_flash_attn} for xlmroberta')
+            self.logger.info(f'Init {init} for xlmroberta')
+            if init:
+                return XLMRobertaModel.from_pretrained(pretrain_dir, config=hf_config)
+            else:
+                return XLMRobertaModel(config=hf_config).cuda()
+        
 
     def create_llm(self, pretrain_dir, init=True):
         self.logger.info(f"******* create LLM {pretrain_dir} *******")
@@ -101,14 +152,6 @@ class HLLM(BaseModel):
                 return MistralForCausalLM.from_pretrained(pretrain_dir, config=hf_config)
             else:
                 return MistralForCausalLM(config=hf_config).cuda()
-        elif isinstance(hf_config, transformers.BertConfig):
-            hf_config.use_ft_flash_attn = self.use_ft_flash_attn
-            self.logger.info(f'Using flash attention {hf_config.use_ft_flash_attn} for bert')
-            self.logger.info(f'Init {init} for bert')
-            if init:
-                return BertModel.from_pretrained(pretrain_dir, config=hf_config)
-            else:
-                return BertModel(config=hf_config).cuda()
         elif getattr(hf_config, "model_type", None) == "baichuan":
             hf_config.use_ft_flash_attn = self.use_ft_flash_attn
             self.logger.info(f'Using flash attention {hf_config.use_ft_flash_attn} for baichuan')
@@ -162,6 +205,10 @@ class HLLM(BaseModel):
         model_out = llm(inputs_embeds=inputs_embeds.unsqueeze(0), cu_input_lens=cu_input_lens, position_ids=position_ids.unsqueeze(0))
         model_out = model_out.hidden_states[-1].squeeze(0) # get item embeddings 
 
+        if self.adapter: 
+            # adapt the embeddings 
+            model_out = self.adapter(model_out)
+
         if emb_token_n > 0:
             emb = model_out[emb_pos - 1] # [num_pos, 2048]
         else:
@@ -180,8 +227,10 @@ class HLLM(BaseModel):
             emb = out.sum(dim=1) / cu_input_lens.unsqueeze(1)
 
         return emb
+    
 
     def forward(self, interaction, mode='train'):
+
         if mode == 'predict':
             return self.predict(interaction[0], interaction[1], interaction[2])
         if mode == 'compute_item':
@@ -194,7 +243,8 @@ class HLLM(BaseModel):
         pos_embedding = self.forward_item_emb(pos_input_ids, pos_position_ids, pos_cu_input_lens, self.item_emb_token_n, self.item_emb_tokens, self.item_llm)
         pos_embedding = pos_embedding.reshape(N, S+1, -1)
         neg_embedding = self.forward_item_emb(neg_input_ids, neg_position_ids, neg_cu_input_lens, self.item_emb_token_n, self.item_emb_tokens, self.item_llm)
-        neg_embedding = neg_embedding.reshape(N, -1, self.item_llm.config.hidden_size)
+        # shape is determined by the user lm
+        neg_embedding = neg_embedding.reshape(N, -1, self.user_llm.config.hidden_size)
 
         target_pos_embs = pos_embedding[:, 1:]
         target_neg_embs = neg_embedding
@@ -214,8 +264,8 @@ class HLLM(BaseModel):
 
     @torch.no_grad()
     def predict(self, item_seq, time_seq, item_feature):
-        attention_mask = (item_seq > 0).int() # bz * max_item_list
-        pos_embedding = item_feature[item_seq] # historically interacted: bz * max_item_list * hd
+        attention_mask = (item_seq > 0).int()
+        pos_embedding = item_feature[item_seq] # historically interacted 
         user_embedding = self.user_llm(inputs_embeds=pos_embedding, attention_mask=attention_mask).hidden_states[-1]
         seq_output = user_embedding[:, -1]
         # cosine similarity 
@@ -233,5 +283,7 @@ class HLLM(BaseModel):
         pos_embedding = self.forward_item_emb(pos_input_ids, pos_position_ids, pos_cu_input_lens, self.item_emb_token_n, self.item_emb_tokens, self.item_llm)
         N = pos_cu_input_lens.size(0)
         pos_embedding = pos_embedding.view(N, -1)
+
+        # 
 
         return pos_embedding

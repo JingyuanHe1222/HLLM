@@ -698,8 +698,8 @@ class LlamaAttention(nn.Module):
                 value_states,
                 attention_mask,
                 cu_input_lens,
-                True,
-                self.training,
+                causal=True, ### !!! causal 
+                training=self.training,
             )
             attn_output = attn_output.to(out_dtype)
             attn_output = attn_output.reshape(bsz, q_len, self.hidden_size)
@@ -945,7 +945,7 @@ class LlamaModel(LlamaPreTrainedModel):
         # create causal mask
         # [bsz, seq_len] -> [bsz, 1, tgt_seq_len, src_seq_len]
         combined_attention_mask = None
-        if input_shape[-1] > 1:
+        if input_shape[-1] > 1: # enter here -> yes 
             combined_attention_mask = _make_causal_mask(
                 input_shape,
                 inputs_embeds.dtype,
@@ -1017,7 +1017,7 @@ class LlamaModel(LlamaPreTrainedModel):
             past_key_values_length = past_key_values[0][0].shape[2]
             seq_length_with_past = seq_length_with_past + past_key_values_length
 
-        if position_ids is None:
+        if position_ids is None: 
             device = input_ids.device if input_ids is not None else inputs_embeds.device
             position_ids = torch.arange(
                 past_key_values_length,
@@ -1027,18 +1027,20 @@ class LlamaModel(LlamaPreTrainedModel):
             )
             position_ids = position_ids.unsqueeze(0).view(-1, seq_length)
         else:
+            # item_embed: enter here 
             position_ids = position_ids.view(-1, seq_length).long()
 
         if inputs_embeds is None:
             inputs_embeds = self.embed_tokens(input_ids)
-        # embed positions
-        if cu_input_lens is None:
+        # embed positions  
+        if cu_input_lens is None: # item_embed: do not enter here 
             if attention_mask is None:
                 attention_mask = torch.ones(
                     (batch_size, seq_length_with_past),
                     dtype=torch.bool,
                     device=inputs_embeds.device,
                 )
+            # user: enter here 
             attention_mask = self._prepare_decoder_attention_mask(
                 attention_mask,
                 (batch_size, seq_length),
@@ -1132,7 +1134,7 @@ class LlamaForCausalLM(LlamaPreTrainedModel):
         super().__init__(config)
         self.model = LlamaModel(config)
         self.vocab_size = config.vocab_size
-        self.lm_head = nn.Linear(config.hidden_size, config.vocab_size, bias=False)
+        self.lm_head = nn.Linear(config.hidden_size, config.vocab_size, bias=False) # classification head 
 
         # Initialize weights and apply final processing
         self.post_init()
@@ -1212,7 +1214,9 @@ class LlamaForCausalLM(LlamaPreTrainedModel):
         return_dict = (
             return_dict if return_dict is not None else self.config.use_return_dict
         )
-
+        # goes to LlamaModel.forward()
+        # items ->  valid fields: input_ids, cu_input_lens, position_ids
+        # user -> valid_fields: input_ids, attention_mask 
         # decoder outputs consists of (dec_features, layer_state, dec_hidden, dec_attn)
         outputs = self.model(
             input_ids=input_ids,

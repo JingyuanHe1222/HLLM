@@ -50,7 +50,7 @@ class Data:
         self.logger.info(f'Interaction feature loaded successfully from [{inter_feat_path}].')
         self.inter_feat = df
 
-        if item_data:
+        if item_data: # do not enter 
             item_data_path = os.path.join(dataset_path, f'{item_data}.csv')
             item_df = pd.read_csv(
                 item_data_path, delimiter=',', dtype={'item_id': str, 'user_id': str, 'timestamp': int}, header=0, names=['item_id', 'user_id', 'timestamp']
@@ -121,7 +121,7 @@ class Data:
 
         if self.config['MODEL_INPUT_TYPE'] == InputType.AUGSEQ:
             train_feat = self._build_aug_seq(train_feat)
-        elif self.config['MODEL_INPUT_TYPE'] == InputType.SEQ:
+        elif self.config['MODEL_INPUT_TYPE'] == InputType.SEQ: # this is the one for PixelRec
             train_feat = self._build_seq(train_feat)
 
         self.train_feat = train_feat

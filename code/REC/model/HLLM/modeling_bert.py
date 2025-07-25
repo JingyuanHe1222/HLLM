@@ -516,6 +516,8 @@ class BertSelfAttention(nn.Module):
 
         outputs = (context_layer, attention_probs) if output_attentions else (context_layer,)
 
+        print(context_layer[:2, :5, :5]) ###
+
         if self.is_decoder:
             outputs = outputs + (past_key_value,)
         return outputs

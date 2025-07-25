@@ -38,7 +38,8 @@ def bulid_dataloader(config, dataload):
         'SASRec': ('SEQTrainDataset', 'SeqEvalDataset', 'seq_eval_collate'),
         'HSTU': ('SEQTrainDataset', 'SeqEvalDataset', 'seq_eval_collate'),
         'LLMIDRec': ('SEQTrainDataset', 'SeqEvalDataset', 'seq_eval_collate'),
-        'HLLM': (('TextSEQTrainDataset', 'customize_rmpad_collate'), 'SeqEvalDataset', 'seq_eval_collate')
+        'HLLM': (('TextSEQTrainDataset', 'customize_rmpad_collate'), 'SeqEvalDataset', 'seq_eval_collate'), 
+        'BGEHLLM': (('TextSEQTrainDataset', 'customize_rmpad_collate'), 'SeqEvalDataset', 'seq_eval_collate')
     }
 
     model_name = config['model']

@@ -206,8 +206,8 @@ class TextSEQTrainDataset(Dataset):
 
         for item in item_seq_token:
             ids, _ = process_item(item)
-            pos_input_ids.extend(ids + [0] * self.item_emb_token_n)
-            pos_cu_input_lens.append(len(ids) + self.item_emb_token_n)
+            pos_input_ids.extend(ids + [0] * self.item_emb_token_n) # extend by a single [item] token -> [0]
+            pos_cu_input_lens.append(len(ids) + self.item_emb_token_n) # length of this sequence 
             pos_position_ids.extend((torch.arange(len(ids) + self.item_emb_token_n) + (self.max_text_length - len(ids))).tolist())
 
         for neg in neg_items_token:

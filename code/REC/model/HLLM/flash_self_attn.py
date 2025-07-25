@@ -50,7 +50,7 @@ def flash_self_attention(
     """
     assert qkv.dtype in [torch.float16, torch.bfloat16]
     assert qkv.is_cuda
-    unpadded = cu_seqlens is not None
+    unpadded = cu_seqlens is not None # True for item_embed 
     if unpadded:
         assert cu_seqlens.dtype == torch.int32
         assert max_seqlen is not None
@@ -89,9 +89,9 @@ def compute_flash_attention(
 
     qkv = torch.stack([q, k, v], dim=2)  # [bs, seq_len, 3, num_attention_heads, attn_head_size]
 
-    if cu_input_lens is not None:
+    if cu_input_lens is not None: # enter here for item_embedding 
         qkv.squeeze_(0)
-        cu_seqlens = F.pad(cu_input_lens.cumsum(dim=0, dtype=torch.int32), (1, 0))
+        cu_seqlens = F.pad(cu_input_lens.cumsum(dim=0, dtype=torch.int32), (1, 0)) # padded 
         max_seqlen = cu_input_lens.max().item()
         out = flash_self_attention(
             qkv,
@@ -102,7 +102,7 @@ def compute_flash_attention(
             attention_dropout=attention_dropout,
         )
         return out
-    elif attention_mask is None:
+    elif attention_mask is None: 
         return flash_self_attention(qkv, causal=causal, training=training, attention_dropout=attention_dropout)
     else:
         # Limitation: non-contiguous attention mask will not be handled correctly

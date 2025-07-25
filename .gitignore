@@ -3,3 +3,6 @@
 code/log/
 code/log_tensorboard/
 code/saved/
+clue_reco_reproduce
+**/log_tensorboard/** 
+**/logs/** 

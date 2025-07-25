@@ -1,0 +1,4672 @@
+Job Starts
+activated
+[2024-10-28 23:30:23,439] [INFO] [real_accelerator.py:203:get_accelerator] Setting ds_accelerator to cuda (auto detect)
+Warning: The default cache directory for DeepSpeed Triton autotune, /home/jingyuah/.triton/autotune, appears to be on an NFS system. While this is generally acceptable, if you experience slowdowns or hanging when DeepSpeed exits, it is recommended to set the TRITON_CACHE_DIR environment variable to a non-NFS path.
+[93m [WARNING] [0m async_io requires the dev libaio .so object and headers but these were not found.
+[93m [WARNING] [0m If libaio is already installed (perhaps from source), try setting the CFLAGS and LDFLAGS environment variables to where it can be found.
+[93m [WARNING] [0m Please specify the CUTLASS repo directory as environment variable $CUTLASS_PATH
+[93m [WARNING] [0m sparse_attn requires a torch version >= 1.5 and < 2.0 but detected 2.1
+[93m [WARNING] [0m using untested triton version (2.1.0), only 1.0.0 is known to be compatible
+Unable to convert the string 'nce' to None / Bool / Float / Int, retaining the original string.
+Unable to convert the string 'Pixel200K' to None / Bool / Float / Int, retaining the original string.
+Unable to convert the string '/data/user_data/jingyuah/HLLM_weights/checkpoints/tiny_llama_1.1b_pixelrec_200K' to None / Bool / Float / Int, retaining the original string.
+Unable to convert the string '/data/user_data/jingyuah/HLLM_weights/checkpoints/TinyLlama-1.1B-intermediate-step-1431k-3T' to None / Bool / Float / Int, retaining the original string.
+Unable to convert the string '/data/user_data/jingyuah/HLLM_weights/checkpoints/TinyLlama-1.1B-intermediate-step-1431k-3T' to None / Bool / Float / Int, retaining the original string.
+Unable to convert the string '/data/user_data/jingyuah/HLLM_weights/data/information' to None / Bool / Float / Int, retaining the original string.
+Unable to convert the string '/data/user_data/jingyuah/HLLM_weights/data/dataset' to None / Bool / Float / Int, retaining the original string.
+Unable to convert the string 'title' to None / Bool / Float / Int, retaining the original string.
+Unable to convert the string 'tag' to None / Bool / Float / Int, retaining the original string.
+Unable to convert the string 'description' to None / Bool / Float / Int, retaining the original string.
+28 Oct 23:30    INFO  Update text_path to /data/user_data/jingyuah/HLLM_weights/data/information/Pixel200K.csv
+28 Oct 23:30    INFO  Loading <class 'REC.data.dataload.Data'> from scratch with self.data_split = None.
+28 Oct 23:30    INFO  Interaction feature loaded successfully from [/data/user_data/jingyuah/HLLM_weights/data/dataset/Pixel200K.csv].
+28 Oct 23:30    INFO  self.user_num = 200001 self.item_num = 96283
+28 Oct 23:30    INFO  self.inter_feat['item_id'].isna().any() = False self.inter_feat['user_id'].isna().any() = False
+28 Oct 23:30    INFO  build Pixel200K dataload
+28 Oct 23:30    INFO  Use random sample True for mask id
+28 Oct 23:30    INFO  Text path: /data/user_data/jingyuah/HLLM_weights/data/information/Pixel200K.csv
+28 Oct 23:30    INFO  Text keys: ['title', 'tag', 'description']
+28 Oct 23:30    INFO  Item prompt: Compress the following sentence into embedding: 
+28 Oct 23:30    INFO  Text Item num: 96281
+28 Oct 23:30    INFO  [Training]: train_batch_size = [8]
+28 Oct 23:30    INFO  [Evaluation]: eval_batch_size = [256]
+len(train_loader) = 37941
+28 Oct 23:30    INFO  create item llm
+28 Oct 23:30    INFO  ******* create LLM /data/user_data/jingyuah/HLLM_weights/checkpoints/TinyLlama-1.1B-intermediate-step-1431k-3T *******
+28 Oct 23:30    INFO  hf_config: LlamaConfig {
+  "_name_or_path": "/data/user_data/jingyuah/HLLM_weights/checkpoints/TinyLlama-1.1B-intermediate-step-1431k-3T",
+  "architectures": [
+    "LlamaForCausalLM"
+  ],
+  "attention_bias": false,
+  "attention_dropout": 0.0,
+  "bos_token_id": 1,
+  "eos_token_id": 2,
+  "hidden_act": "silu",
+  "hidden_size": 2048,
+  "initializer_range": 0.02,
+  "intermediate_size": 5632,
+  "max_position_embeddings": 2048,
+  "mlp_bias": false,
+  "model_type": "llama",
+  "num_attention_heads": 32,
+  "num_hidden_layers": 22,
+  "num_key_value_heads": 4,
+  "pretraining_tp": 1,
+  "rms_norm_eps": 1e-05,
+  "rope_scaling": null,
+  "rope_theta": 10000.0,
+  "tie_word_embeddings": false,
+  "torch_dtype": "float32",
+  "transformers_version": "4.41.1",
+  "use_cache": true,
+  "vocab_size": 32000
+}
+
+28 Oct 23:30    INFO  xxxxx starting loading checkpoint
+28 Oct 23:30    INFO  Using flash attention True for llama
+28 Oct 23:30    INFO  Init True for llama
+28 Oct 23:30    INFO  create user llm
+28 Oct 23:30    INFO  ******* create LLM /data/user_data/jingyuah/HLLM_weights/checkpoints/TinyLlama-1.1B-intermediate-step-1431k-3T *******
+28 Oct 23:30    INFO  hf_config: LlamaConfig {
+  "_name_or_path": "/data/user_data/jingyuah/HLLM_weights/checkpoints/TinyLlama-1.1B-intermediate-step-1431k-3T",
+  "architectures": [
+    "LlamaForCausalLM"
+  ],
+  "attention_bias": false,
+  "attention_dropout": 0.0,
+  "bos_token_id": 1,
+  "eos_token_id": 2,
+  "hidden_act": "silu",
+  "hidden_size": 2048,
+  "initializer_range": 0.02,
+  "intermediate_size": 5632,
+  "max_position_embeddings": 2048,
+  "mlp_bias": false,
+  "model_type": "llama",
+  "num_attention_heads": 32,
+  "num_hidden_layers": 22,
+  "num_key_value_heads": 4,
+  "pretraining_tp": 1,
+  "rms_norm_eps": 1e-05,
+  "rope_scaling": null,
+  "rope_theta": 10000.0,
+  "tie_word_embeddings": false,
+  "torch_dtype": "float32",
+  "transformers_version": "4.41.1",
+  "use_cache": true,
+  "vocab_size": 32000
+}
+
+28 Oct 23:30    INFO  xxxxx starting loading checkpoint
+28 Oct 23:30    INFO  Using flash attention True for llama
+28 Oct 23:30    INFO  Init True for llama
+28 Oct 23:30    INFO  nce thres setting to 0.99
+28 Oct 23:30    INFO  item_emb_tokens torch.Size([1, 1, 2048]) True
+28 Oct 23:30    INFO  logit_scale torch.Size([]) True
+28 Oct 23:30    INFO  item_llm.model.embed_tokens.weight torch.Size([32000, 2048]) True
+28 Oct 23:30    INFO  item_llm.model.layers.0.self_attn.q_proj.weight torch.Size([2048, 2048]) True
+28 Oct 23:30    INFO  item_llm.model.layers.0.self_attn.k_proj.weight torch.Size([256, 2048]) True
+28 Oct 23:30    INFO  item_llm.model.layers.0.self_attn.v_proj.weight torch.Size([256, 2048]) True
+28 Oct 23:30    INFO  item_llm.model.layers.0.self_attn.o_proj.weight torch.Size([2048, 2048]) True
+28 Oct 23:30    INFO  item_llm.model.layers.0.mlp.gate_proj.weight torch.Size([5632, 2048]) True
+28 Oct 23:30    INFO  item_llm.model.layers.0.mlp.up_proj.weight torch.Size([5632, 2048]) True
+28 Oct 23:30    INFO  item_llm.model.layers.0.mlp.down_proj.weight torch.Size([2048, 5632]) True
+28 Oct 23:30    INFO  item_llm.model.layers.0.input_layernorm.weight torch.Size([2048]) True
+28 Oct 23:30    INFO  item_llm.model.layers.0.post_attention_layernorm.weight torch.Size([2048]) True
+28 Oct 23:30    INFO  item_llm.model.layers.1.self_attn.q_proj.weight torch.Size([2048, 2048]) True
+28 Oct 23:30    INFO  item_llm.model.layers.1.self_attn.k_proj.weight torch.Size([256, 2048]) True
+28 Oct 23:30    INFO  item_llm.model.layers.1.self_attn.v_proj.weight torch.Size([256, 2048]) True
+28 Oct 23:30    INFO  item_llm.model.layers.1.self_attn.o_proj.weight torch.Size([2048, 2048]) True
+28 Oct 23:30    INFO  item_llm.model.layers.1.mlp.gate_proj.weight torch.Size([5632, 2048]) True
+28 Oct 23:30    INFO  item_llm.model.layers.1.mlp.up_proj.weight torch.Size([5632, 2048]) True
+28 Oct 23:30    INFO  item_llm.model.layers.1.mlp.down_proj.weight torch.Size([2048, 5632]) True
+28 Oct 23:30    INFO  item_llm.model.layers.1.input_layernorm.weight torch.Size([2048]) True
+28 Oct 23:30    INFO  item_llm.model.layers.1.post_attention_layernorm.weight torch.Size([2048]) True
+28 Oct 23:30    INFO  item_llm.model.layers.2.self_attn.q_proj.weight torch.Size([2048, 2048]) True
+28 Oct 23:30    INFO  item_llm.model.layers.2.self_attn.k_proj.weight torch.Size([256, 2048]) True
+28 Oct 23:30    INFO  item_llm.model.layers.2.self_attn.v_proj.weight torch.Size([256, 2048]) True
+28 Oct 23:30    INFO  item_llm.model.layers.2.self_attn.o_proj.weight torch.Size([2048, 2048]) True
+28 Oct 23:30    INFO  item_llm.model.layers.2.mlp.gate_proj.weight torch.Size([5632, 2048]) True
+28 Oct 23:30    INFO  item_llm.model.layers.2.mlp.up_proj.weight torch.Size([5632, 2048]) True
+28 Oct 23:30    INFO  item_llm.model.layers.2.mlp.down_proj.weight torch.Size([2048, 5632]) True
+28 Oct 23:30    INFO  item_llm.model.layers.2.input_layernorm.weight torch.Size([2048]) True
+28 Oct 23:30    INFO  item_llm.model.layers.2.post_attention_layernorm.weight torch.Size([2048]) True
+28 Oct 23:30    INFO  item_llm.model.layers.3.self_attn.q_proj.weight torch.Size([2048, 2048]) True
+28 Oct 23:30    INFO  item_llm.model.layers.3.self_attn.k_proj.weight torch.Size([256, 2048]) True
+28 Oct 23:30    INFO  item_llm.model.layers.3.self_attn.v_proj.weight torch.Size([256, 2048]) True
+28 Oct 23:30    INFO  item_llm.model.layers.3.self_attn.o_proj.weight torch.Size([2048, 2048]) True
+28 Oct 23:30    INFO  item_llm.model.layers.3.mlp.gate_proj.weight torch.Size([5632, 2048]) True
+28 Oct 23:30    INFO  item_llm.model.layers.3.mlp.up_proj.weight torch.Size([5632, 2048]) True
+28 Oct 23:30    INFO  item_llm.model.layers.3.mlp.down_proj.weight torch.Size([2048, 5632]) True
+28 Oct 23:30    INFO  item_llm.model.layers.3.input_layernorm.weight torch.Size([2048]) True
+28 Oct 23:30    INFO  item_llm.model.layers.3.post_attention_layernorm.weight torch.Size([2048]) True
+28 Oct 23:30    INFO  item_llm.model.layers.4.self_attn.q_proj.weight torch.Size([2048, 2048]) True
+28 Oct 23:30    INFO  item_llm.model.layers.4.self_attn.k_proj.weight torch.Size([256, 2048]) True
+28 Oct 23:30    INFO  item_llm.model.layers.4.self_attn.v_proj.weight torch.Size([256, 2048]) True
+28 Oct 23:30    INFO  item_llm.model.layers.4.self_attn.o_proj.weight torch.Size([2048, 2048]) True
+28 Oct 23:30    INFO  item_llm.model.layers.4.mlp.gate_proj.weight torch.Size([5632, 2048]) True
+28 Oct 23:30    INFO  item_llm.model.layers.4.mlp.up_proj.weight torch.Size([5632, 2048]) True
+28 Oct 23:30    INFO  item_llm.model.layers.4.mlp.down_proj.weight torch.Size([2048, 5632]) True
+28 Oct 23:30    INFO  item_llm.model.layers.4.input_layernorm.weight torch.Size([2048]) True
+28 Oct 23:30    INFO  item_llm.model.layers.4.post_attention_layernorm.weight torch.Size([2048]) True
+28 Oct 23:30    INFO  item_llm.model.layers.5.self_attn.q_proj.weight torch.Size([2048, 2048]) True
+28 Oct 23:30    INFO  item_llm.model.layers.5.self_attn.k_proj.weight torch.Size([256, 2048]) True
+28 Oct 23:30    INFO  item_llm.model.layers.5.self_attn.v_proj.weight torch.Size([256, 2048]) True
+28 Oct 23:30    INFO  item_llm.model.layers.5.self_attn.o_proj.weight torch.Size([2048, 2048]) True
+28 Oct 23:30    INFO  item_llm.model.layers.5.mlp.gate_proj.weight torch.Size([5632, 2048]) True
+28 Oct 23:30    INFO  item_llm.model.layers.5.mlp.up_proj.weight torch.Size([5632, 2048]) True
+28 Oct 23:30    INFO  item_llm.model.layers.5.mlp.down_proj.weight torch.Size([2048, 5632]) True
+28 Oct 23:30    INFO  item_llm.model.layers.5.input_layernorm.weight torch.Size([2048]) True
+28 Oct 23:30    INFO  item_llm.model.layers.5.post_attention_layernorm.weight torch.Size([2048]) True
+28 Oct 23:30    INFO  item_llm.model.layers.6.self_attn.q_proj.weight torch.Size([2048, 2048]) True
+28 Oct 23:30    INFO  item_llm.model.layers.6.self_attn.k_proj.weight torch.Size([256, 2048]) True
+28 Oct 23:30    INFO  item_llm.model.layers.6.self_attn.v_proj.weight torch.Size([256, 2048]) True
+28 Oct 23:30    INFO  item_llm.model.layers.6.self_attn.o_proj.weight torch.Size([2048, 2048]) True
+28 Oct 23:30    INFO  item_llm.model.layers.6.mlp.gate_proj.weight torch.Size([5632, 2048]) True
+28 Oct 23:30    INFO  item_llm.model.layers.6.mlp.up_proj.weight torch.Size([5632, 2048]) True
+28 Oct 23:30    INFO  item_llm.model.layers.6.mlp.down_proj.weight torch.Size([2048, 5632]) True
+28 Oct 23:30    INFO  item_llm.model.layers.6.input_layernorm.weight torch.Size([2048]) True
+28 Oct 23:30    INFO  item_llm.model.layers.6.post_attention_layernorm.weight torch.Size([2048]) True
+28 Oct 23:30    INFO  item_llm.model.layers.7.self_attn.q_proj.weight torch.Size([2048, 2048]) True
+28 Oct 23:30    INFO  item_llm.model.layers.7.self_attn.k_proj.weight torch.Size([256, 2048]) True
+28 Oct 23:30    INFO  item_llm.model.layers.7.self_attn.v_proj.weight torch.Size([256, 2048]) True
+28 Oct 23:30    INFO  item_llm.model.layers.7.self_attn.o_proj.weight torch.Size([2048, 2048]) True
+28 Oct 23:30    INFO  item_llm.model.layers.7.mlp.gate_proj.weight torch.Size([5632, 2048]) True
+28 Oct 23:30    INFO  item_llm.model.layers.7.mlp.up_proj.weight torch.Size([5632, 2048]) True
+28 Oct 23:30    INFO  item_llm.model.layers.7.mlp.down_proj.weight torch.Size([2048, 5632]) True
+28 Oct 23:30    INFO  item_llm.model.layers.7.input_layernorm.weight torch.Size([2048]) True
+28 Oct 23:30    INFO  item_llm.model.layers.7.post_attention_layernorm.weight torch.Size([2048]) True
+28 Oct 23:30    INFO  item_llm.model.layers.8.self_attn.q_proj.weight torch.Size([2048, 2048]) True
+28 Oct 23:30    INFO  item_llm.model.layers.8.self_attn.k_proj.weight torch.Size([256, 2048]) True
+28 Oct 23:30    INFO  item_llm.model.layers.8.self_attn.v_proj.weight torch.Size([256, 2048]) True
+28 Oct 23:30    INFO  item_llm.model.layers.8.self_attn.o_proj.weight torch.Size([2048, 2048]) True
+28 Oct 23:30    INFO  item_llm.model.layers.8.mlp.gate_proj.weight torch.Size([5632, 2048]) True
+28 Oct 23:30    INFO  item_llm.model.layers.8.mlp.up_proj.weight torch.Size([5632, 2048]) True
+28 Oct 23:30    INFO  item_llm.model.layers.8.mlp.down_proj.weight torch.Size([2048, 5632]) True
+28 Oct 23:30    INFO  item_llm.model.layers.8.input_layernorm.weight torch.Size([2048]) True
+28 Oct 23:30    INFO  item_llm.model.layers.8.post_attention_layernorm.weight torch.Size([2048]) True
+28 Oct 23:30    INFO  item_llm.model.layers.9.self_attn.q_proj.weight torch.Size([2048, 2048]) True
+28 Oct 23:30    INFO  item_llm.model.layers.9.self_attn.k_proj.weight torch.Size([256, 2048]) True
+28 Oct 23:30    INFO  item_llm.model.layers.9.self_attn.v_proj.weight torch.Size([256, 2048]) True
+28 Oct 23:30    INFO  item_llm.model.layers.9.self_attn.o_proj.weight torch.Size([2048, 2048]) True
+28 Oct 23:30    INFO  item_llm.model.layers.9.mlp.gate_proj.weight torch.Size([5632, 2048]) True
+28 Oct 23:30    INFO  item_llm.model.layers.9.mlp.up_proj.weight torch.Size([5632, 2048]) True
+28 Oct 23:30    INFO  item_llm.model.layers.9.mlp.down_proj.weight torch.Size([2048, 5632]) True
+28 Oct 23:30    INFO  item_llm.model.layers.9.input_layernorm.weight torch.Size([2048]) True
+28 Oct 23:30    INFO  item_llm.model.layers.9.post_attention_layernorm.weight torch.Size([2048]) True
+28 Oct 23:30    INFO  item_llm.model.layers.10.self_attn.q_proj.weight torch.Size([2048, 2048]) True
+28 Oct 23:30    INFO  item_llm.model.layers.10.self_attn.k_proj.weight torch.Size([256, 2048]) True
+28 Oct 23:30    INFO  item_llm.model.layers.10.self_attn.v_proj.weight torch.Size([256, 2048]) True
+28 Oct 23:30    INFO  item_llm.model.layers.10.self_attn.o_proj.weight torch.Size([2048, 2048]) True
+28 Oct 23:30    INFO  item_llm.model.layers.10.mlp.gate_proj.weight torch.Size([5632, 2048]) True
+28 Oct 23:30    INFO  item_llm.model.layers.10.mlp.up_proj.weight torch.Size([5632, 2048]) True
+28 Oct 23:30    INFO  item_llm.model.layers.10.mlp.down_proj.weight torch.Size([2048, 5632]) True
+28 Oct 23:30    INFO  item_llm.model.layers.10.input_layernorm.weight torch.Size([2048]) True
+28 Oct 23:30    INFO  item_llm.model.layers.10.post_attention_layernorm.weight torch.Size([2048]) True
+28 Oct 23:30    INFO  item_llm.model.layers.11.self_attn.q_proj.weight torch.Size([2048, 2048]) True
+28 Oct 23:30    INFO  item_llm.model.layers.11.self_attn.k_proj.weight torch.Size([256, 2048]) True
+28 Oct 23:30    INFO  item_llm.model.layers.11.self_attn.v_proj.weight torch.Size([256, 2048]) True
+28 Oct 23:30    INFO  item_llm.model.layers.11.self_attn.o_proj.weight torch.Size([2048, 2048]) True
+28 Oct 23:30    INFO  item_llm.model.layers.11.mlp.gate_proj.weight torch.Size([5632, 2048]) True
+28 Oct 23:30    INFO  item_llm.model.layers.11.mlp.up_proj.weight torch.Size([5632, 2048]) True
+28 Oct 23:30    INFO  item_llm.model.layers.11.mlp.down_proj.weight torch.Size([2048, 5632]) True
+28 Oct 23:30    INFO  item_llm.model.layers.11.input_layernorm.weight torch.Size([2048]) True
+28 Oct 23:30    INFO  item_llm.model.layers.11.post_attention_layernorm.weight torch.Size([2048]) True
+28 Oct 23:30    INFO  item_llm.model.layers.12.self_attn.q_proj.weight torch.Size([2048, 2048]) True
+28 Oct 23:30    INFO  item_llm.model.layers.12.self_attn.k_proj.weight torch.Size([256, 2048]) True
+28 Oct 23:30    INFO  item_llm.model.layers.12.self_attn.v_proj.weight torch.Size([256, 2048]) True
+28 Oct 23:30    INFO  item_llm.model.layers.12.self_attn.o_proj.weight torch.Size([2048, 2048]) True
+28 Oct 23:30    INFO  item_llm.model.layers.12.mlp.gate_proj.weight torch.Size([5632, 2048]) True
+28 Oct 23:30    INFO  item_llm.model.layers.12.mlp.up_proj.weight torch.Size([5632, 2048]) True
+28 Oct 23:30    INFO  item_llm.model.layers.12.mlp.down_proj.weight torch.Size([2048, 5632]) True
+28 Oct 23:30    INFO  item_llm.model.layers.12.input_layernorm.weight torch.Size([2048]) True
+28 Oct 23:30    INFO  item_llm.model.layers.12.post_attention_layernorm.weight torch.Size([2048]) True
+28 Oct 23:30    INFO  item_llm.model.layers.13.self_attn.q_proj.weight torch.Size([2048, 2048]) True
+28 Oct 23:30    INFO  item_llm.model.layers.13.self_attn.k_proj.weight torch.Size([256, 2048]) True
+28 Oct 23:30    INFO  item_llm.model.layers.13.self_attn.v_proj.weight torch.Size([256, 2048]) True
+28 Oct 23:30    INFO  item_llm.model.layers.13.self_attn.o_proj.weight torch.Size([2048, 2048]) True
+28 Oct 23:30    INFO  item_llm.model.layers.13.mlp.gate_proj.weight torch.Size([5632, 2048]) True
+28 Oct 23:30    INFO  item_llm.model.layers.13.mlp.up_proj.weight torch.Size([5632, 2048]) True
+28 Oct 23:30    INFO  item_llm.model.layers.13.mlp.down_proj.weight torch.Size([2048, 5632]) True
+28 Oct 23:30    INFO  item_llm.model.layers.13.input_layernorm.weight torch.Size([2048]) True
+28 Oct 23:30    INFO  item_llm.model.layers.13.post_attention_layernorm.weight torch.Size([2048]) True
+28 Oct 23:30    INFO  item_llm.model.layers.14.self_attn.q_proj.weight torch.Size([2048, 2048]) True
+28 Oct 23:30    INFO  item_llm.model.layers.14.self_attn.k_proj.weight torch.Size([256, 2048]) True
+28 Oct 23:30    INFO  item_llm.model.layers.14.self_attn.v_proj.weight torch.Size([256, 2048]) True
+28 Oct 23:30    INFO  item_llm.model.layers.14.self_attn.o_proj.weight torch.Size([2048, 2048]) True
+28 Oct 23:30    INFO  item_llm.model.layers.14.mlp.gate_proj.weight torch.Size([5632, 2048]) True
+28 Oct 23:30    INFO  item_llm.model.layers.14.mlp.up_proj.weight torch.Size([5632, 2048]) True
+28 Oct 23:30    INFO  item_llm.model.layers.14.mlp.down_proj.weight torch.Size([2048, 5632]) True
+28 Oct 23:30    INFO  item_llm.model.layers.14.input_layernorm.weight torch.Size([2048]) True
+28 Oct 23:30    INFO  item_llm.model.layers.14.post_attention_layernorm.weight torch.Size([2048]) True
+28 Oct 23:30    INFO  item_llm.model.layers.15.self_attn.q_proj.weight torch.Size([2048, 2048]) True
+28 Oct 23:30    INFO  item_llm.model.layers.15.self_attn.k_proj.weight torch.Size([256, 2048]) True
+28 Oct 23:30    INFO  item_llm.model.layers.15.self_attn.v_proj.weight torch.Size([256, 2048]) True
+28 Oct 23:30    INFO  item_llm.model.layers.15.self_attn.o_proj.weight torch.Size([2048, 2048]) True
+28 Oct 23:30    INFO  item_llm.model.layers.15.mlp.gate_proj.weight torch.Size([5632, 2048]) True
+28 Oct 23:30    INFO  item_llm.model.layers.15.mlp.up_proj.weight torch.Size([5632, 2048]) True
+28 Oct 23:30    INFO  item_llm.model.layers.15.mlp.down_proj.weight torch.Size([2048, 5632]) True
+28 Oct 23:30    INFO  item_llm.model.layers.15.input_layernorm.weight torch.Size([2048]) True
+28 Oct 23:30    INFO  item_llm.model.layers.15.post_attention_layernorm.weight torch.Size([2048]) True
+28 Oct 23:30    INFO  item_llm.model.layers.16.self_attn.q_proj.weight torch.Size([2048, 2048]) True
+28 Oct 23:30    INFO  item_llm.model.layers.16.self_attn.k_proj.weight torch.Size([256, 2048]) True
+28 Oct 23:30    INFO  item_llm.model.layers.16.self_attn.v_proj.weight torch.Size([256, 2048]) True
+28 Oct 23:30    INFO  item_llm.model.layers.16.self_attn.o_proj.weight torch.Size([2048, 2048]) True
+28 Oct 23:30    INFO  item_llm.model.layers.16.mlp.gate_proj.weight torch.Size([5632, 2048]) True
+28 Oct 23:30    INFO  item_llm.model.layers.16.mlp.up_proj.weight torch.Size([5632, 2048]) True
+28 Oct 23:30    INFO  item_llm.model.layers.16.mlp.down_proj.weight torch.Size([2048, 5632]) True
+28 Oct 23:30    INFO  item_llm.model.layers.16.input_layernorm.weight torch.Size([2048]) True
+28 Oct 23:30    INFO  item_llm.model.layers.16.post_attention_layernorm.weight torch.Size([2048]) True
+28 Oct 23:30    INFO  item_llm.model.layers.17.self_attn.q_proj.weight torch.Size([2048, 2048]) True
+28 Oct 23:30    INFO  item_llm.model.layers.17.self_attn.k_proj.weight torch.Size([256, 2048]) True
+28 Oct 23:30    INFO  item_llm.model.layers.17.self_attn.v_proj.weight torch.Size([256, 2048]) True
+28 Oct 23:30    INFO  item_llm.model.layers.17.self_attn.o_proj.weight torch.Size([2048, 2048]) True
+28 Oct 23:30    INFO  item_llm.model.layers.17.mlp.gate_proj.weight torch.Size([5632, 2048]) True
+28 Oct 23:30    INFO  item_llm.model.layers.17.mlp.up_proj.weight torch.Size([5632, 2048]) True
+28 Oct 23:30    INFO  item_llm.model.layers.17.mlp.down_proj.weight torch.Size([2048, 5632]) True
+28 Oct 23:30    INFO  item_llm.model.layers.17.input_layernorm.weight torch.Size([2048]) True
+28 Oct 23:30    INFO  item_llm.model.layers.17.post_attention_layernorm.weight torch.Size([2048]) True
+28 Oct 23:30    INFO  item_llm.model.layers.18.self_attn.q_proj.weight torch.Size([2048, 2048]) True
+28 Oct 23:30    INFO  item_llm.model.layers.18.self_attn.k_proj.weight torch.Size([256, 2048]) True
+28 Oct 23:30    INFO  item_llm.model.layers.18.self_attn.v_proj.weight torch.Size([256, 2048]) True
+28 Oct 23:30    INFO  item_llm.model.layers.18.self_attn.o_proj.weight torch.Size([2048, 2048]) True
+28 Oct 23:30    INFO  item_llm.model.layers.18.mlp.gate_proj.weight torch.Size([5632, 2048]) True
+28 Oct 23:30    INFO  item_llm.model.layers.18.mlp.up_proj.weight torch.Size([5632, 2048]) True
+28 Oct 23:30    INFO  item_llm.model.layers.18.mlp.down_proj.weight torch.Size([2048, 5632]) True
+28 Oct 23:30    INFO  item_llm.model.layers.18.input_layernorm.weight torch.Size([2048]) True
+28 Oct 23:30    INFO  item_llm.model.layers.18.post_attention_layernorm.weight torch.Size([2048]) True
+28 Oct 23:30    INFO  item_llm.model.layers.19.self_attn.q_proj.weight torch.Size([2048, 2048]) True
+28 Oct 23:30    INFO  item_llm.model.layers.19.self_attn.k_proj.weight torch.Size([256, 2048]) True
+28 Oct 23:30    INFO  item_llm.model.layers.19.self_attn.v_proj.weight torch.Size([256, 2048]) True
+28 Oct 23:30    INFO  item_llm.model.layers.19.self_attn.o_proj.weight torch.Size([2048, 2048]) True
+28 Oct 23:30    INFO  item_llm.model.layers.19.mlp.gate_proj.weight torch.Size([5632, 2048]) True
+28 Oct 23:30    INFO  item_llm.model.layers.19.mlp.up_proj.weight torch.Size([5632, 2048]) True
+28 Oct 23:30    INFO  item_llm.model.layers.19.mlp.down_proj.weight torch.Size([2048, 5632]) True
+28 Oct 23:30    INFO  item_llm.model.layers.19.input_layernorm.weight torch.Size([2048]) True
+28 Oct 23:30    INFO  item_llm.model.layers.19.post_attention_layernorm.weight torch.Size([2048]) True
+28 Oct 23:30    INFO  item_llm.model.layers.20.self_attn.q_proj.weight torch.Size([2048, 2048]) True
+28 Oct 23:30    INFO  item_llm.model.layers.20.self_attn.k_proj.weight torch.Size([256, 2048]) True
+28 Oct 23:30    INFO  item_llm.model.layers.20.self_attn.v_proj.weight torch.Size([256, 2048]) True
+28 Oct 23:30    INFO  item_llm.model.layers.20.self_attn.o_proj.weight torch.Size([2048, 2048]) True
+28 Oct 23:30    INFO  item_llm.model.layers.20.mlp.gate_proj.weight torch.Size([5632, 2048]) True
+28 Oct 23:30    INFO  item_llm.model.layers.20.mlp.up_proj.weight torch.Size([5632, 2048]) True
+28 Oct 23:30    INFO  item_llm.model.layers.20.mlp.down_proj.weight torch.Size([2048, 5632]) True
+28 Oct 23:30    INFO  item_llm.model.layers.20.input_layernorm.weight torch.Size([2048]) True
+28 Oct 23:30    INFO  item_llm.model.layers.20.post_attention_layernorm.weight torch.Size([2048]) True
+28 Oct 23:30    INFO  item_llm.model.layers.21.self_attn.q_proj.weight torch.Size([2048, 2048]) True
+28 Oct 23:30    INFO  item_llm.model.layers.21.self_attn.k_proj.weight torch.Size([256, 2048]) True
+28 Oct 23:30    INFO  item_llm.model.layers.21.self_attn.v_proj.weight torch.Size([256, 2048]) True
+28 Oct 23:30    INFO  item_llm.model.layers.21.self_attn.o_proj.weight torch.Size([2048, 2048]) True
+28 Oct 23:30    INFO  item_llm.model.layers.21.mlp.gate_proj.weight torch.Size([5632, 2048]) True
+28 Oct 23:30    INFO  item_llm.model.layers.21.mlp.up_proj.weight torch.Size([5632, 2048]) True
+28 Oct 23:30    INFO  item_llm.model.layers.21.mlp.down_proj.weight torch.Size([2048, 5632]) True
+28 Oct 23:30    INFO  item_llm.model.layers.21.input_layernorm.weight torch.Size([2048]) True
+28 Oct 23:30    INFO  item_llm.model.layers.21.post_attention_layernorm.weight torch.Size([2048]) True
+28 Oct 23:30    INFO  item_llm.model.norm.weight torch.Size([2048]) True
+28 Oct 23:30    INFO  item_llm.lm_head.weight torch.Size([32000, 2048]) True
+28 Oct 23:30    INFO  user_llm.model.embed_tokens.weight torch.Size([32000, 2048]) True
+28 Oct 23:30    INFO  user_llm.model.layers.0.self_attn.q_proj.weight torch.Size([2048, 2048]) True
+28 Oct 23:30    INFO  user_llm.model.layers.0.self_attn.k_proj.weight torch.Size([256, 2048]) True
+28 Oct 23:30    INFO  user_llm.model.layers.0.self_attn.v_proj.weight torch.Size([256, 2048]) True
+28 Oct 23:30    INFO  user_llm.model.layers.0.self_attn.o_proj.weight torch.Size([2048, 2048]) True
+28 Oct 23:30    INFO  user_llm.model.layers.0.mlp.gate_proj.weight torch.Size([5632, 2048]) True
+28 Oct 23:30    INFO  user_llm.model.layers.0.mlp.up_proj.weight torch.Size([5632, 2048]) True
+28 Oct 23:30    INFO  user_llm.model.layers.0.mlp.down_proj.weight torch.Size([2048, 5632]) True
+28 Oct 23:30    INFO  user_llm.model.layers.0.input_layernorm.weight torch.Size([2048]) True
+28 Oct 23:30    INFO  user_llm.model.layers.0.post_attention_layernorm.weight torch.Size([2048]) True
+28 Oct 23:30    INFO  user_llm.model.layers.1.self_attn.q_proj.weight torch.Size([2048, 2048]) True
+28 Oct 23:30    INFO  user_llm.model.layers.1.self_attn.k_proj.weight torch.Size([256, 2048]) True
+28 Oct 23:30    INFO  user_llm.model.layers.1.self_attn.v_proj.weight torch.Size([256, 2048]) True
+28 Oct 23:30    INFO  user_llm.model.layers.1.self_attn.o_proj.weight torch.Size([2048, 2048]) True
+28 Oct 23:30    INFO  user_llm.model.layers.1.mlp.gate_proj.weight torch.Size([5632, 2048]) True
+28 Oct 23:30    INFO  user_llm.model.layers.1.mlp.up_proj.weight torch.Size([5632, 2048]) True
+28 Oct 23:30    INFO  user_llm.model.layers.1.mlp.down_proj.weight torch.Size([2048, 5632]) True
+28 Oct 23:30    INFO  user_llm.model.layers.1.input_layernorm.weight torch.Size([2048]) True
+28 Oct 23:30    INFO  user_llm.model.layers.1.post_attention_layernorm.weight torch.Size([2048]) True
+28 Oct 23:30    INFO  user_llm.model.layers.2.self_attn.q_proj.weight torch.Size([2048, 2048]) True
+28 Oct 23:30    INFO  user_llm.model.layers.2.self_attn.k_proj.weight torch.Size([256, 2048]) True
+28 Oct 23:30    INFO  user_llm.model.layers.2.self_attn.v_proj.weight torch.Size([256, 2048]) True
+28 Oct 23:30    INFO  user_llm.model.layers.2.self_attn.o_proj.weight torch.Size([2048, 2048]) True
+28 Oct 23:30    INFO  user_llm.model.layers.2.mlp.gate_proj.weight torch.Size([5632, 2048]) True
+28 Oct 23:30    INFO  user_llm.model.layers.2.mlp.up_proj.weight torch.Size([5632, 2048]) True
+28 Oct 23:30    INFO  user_llm.model.layers.2.mlp.down_proj.weight torch.Size([2048, 5632]) True
+28 Oct 23:30    INFO  user_llm.model.layers.2.input_layernorm.weight torch.Size([2048]) True
+28 Oct 23:30    INFO  user_llm.model.layers.2.post_attention_layernorm.weight torch.Size([2048]) True
+28 Oct 23:30    INFO  user_llm.model.layers.3.self_attn.q_proj.weight torch.Size([2048, 2048]) True
+28 Oct 23:30    INFO  user_llm.model.layers.3.self_attn.k_proj.weight torch.Size([256, 2048]) True
+28 Oct 23:30    INFO  user_llm.model.layers.3.self_attn.v_proj.weight torch.Size([256, 2048]) True
+28 Oct 23:30    INFO  user_llm.model.layers.3.self_attn.o_proj.weight torch.Size([2048, 2048]) True
+28 Oct 23:30    INFO  user_llm.model.layers.3.mlp.gate_proj.weight torch.Size([5632, 2048]) True
+28 Oct 23:30    INFO  user_llm.model.layers.3.mlp.up_proj.weight torch.Size([5632, 2048]) True
+28 Oct 23:30    INFO  user_llm.model.layers.3.mlp.down_proj.weight torch.Size([2048, 5632]) True
+28 Oct 23:30    INFO  user_llm.model.layers.3.input_layernorm.weight torch.Size([2048]) True
+28 Oct 23:30    INFO  user_llm.model.layers.3.post_attention_layernorm.weight torch.Size([2048]) True
+28 Oct 23:30    INFO  user_llm.model.layers.4.self_attn.q_proj.weight torch.Size([2048, 2048]) True
+28 Oct 23:30    INFO  user_llm.model.layers.4.self_attn.k_proj.weight torch.Size([256, 2048]) True
+28 Oct 23:30    INFO  user_llm.model.layers.4.self_attn.v_proj.weight torch.Size([256, 2048]) True
+28 Oct 23:30    INFO  user_llm.model.layers.4.self_attn.o_proj.weight torch.Size([2048, 2048]) True
+28 Oct 23:30    INFO  user_llm.model.layers.4.mlp.gate_proj.weight torch.Size([5632, 2048]) True
+28 Oct 23:30    INFO  user_llm.model.layers.4.mlp.up_proj.weight torch.Size([5632, 2048]) True
+28 Oct 23:30    INFO  user_llm.model.layers.4.mlp.down_proj.weight torch.Size([2048, 5632]) True
+28 Oct 23:30    INFO  user_llm.model.layers.4.input_layernorm.weight torch.Size([2048]) True
+28 Oct 23:30    INFO  user_llm.model.layers.4.post_attention_layernorm.weight torch.Size([2048]) True
+28 Oct 23:30    INFO  user_llm.model.layers.5.self_attn.q_proj.weight torch.Size([2048, 2048]) True
+28 Oct 23:30    INFO  user_llm.model.layers.5.self_attn.k_proj.weight torch.Size([256, 2048]) True
+28 Oct 23:30    INFO  user_llm.model.layers.5.self_attn.v_proj.weight torch.Size([256, 2048]) True
+28 Oct 23:30    INFO  user_llm.model.layers.5.self_attn.o_proj.weight torch.Size([2048, 2048]) True
+28 Oct 23:30    INFO  user_llm.model.layers.5.mlp.gate_proj.weight torch.Size([5632, 2048]) True
+28 Oct 23:30    INFO  user_llm.model.layers.5.mlp.up_proj.weight torch.Size([5632, 2048]) True
+28 Oct 23:30    INFO  user_llm.model.layers.5.mlp.down_proj.weight torch.Size([2048, 5632]) True
+28 Oct 23:30    INFO  user_llm.model.layers.5.input_layernorm.weight torch.Size([2048]) True
+28 Oct 23:30    INFO  user_llm.model.layers.5.post_attention_layernorm.weight torch.Size([2048]) True
+28 Oct 23:30    INFO  user_llm.model.layers.6.self_attn.q_proj.weight torch.Size([2048, 2048]) True
+28 Oct 23:30    INFO  user_llm.model.layers.6.self_attn.k_proj.weight torch.Size([256, 2048]) True
+28 Oct 23:30    INFO  user_llm.model.layers.6.self_attn.v_proj.weight torch.Size([256, 2048]) True
+28 Oct 23:30    INFO  user_llm.model.layers.6.self_attn.o_proj.weight torch.Size([2048, 2048]) True
+28 Oct 23:30    INFO  user_llm.model.layers.6.mlp.gate_proj.weight torch.Size([5632, 2048]) True
+28 Oct 23:30    INFO  user_llm.model.layers.6.mlp.up_proj.weight torch.Size([5632, 2048]) True
+28 Oct 23:30    INFO  user_llm.model.layers.6.mlp.down_proj.weight torch.Size([2048, 5632]) True
+28 Oct 23:30    INFO  user_llm.model.layers.6.input_layernorm.weight torch.Size([2048]) True
+28 Oct 23:30    INFO  user_llm.model.layers.6.post_attention_layernorm.weight torch.Size([2048]) True
+28 Oct 23:30    INFO  user_llm.model.layers.7.self_attn.q_proj.weight torch.Size([2048, 2048]) True
+28 Oct 23:30    INFO  user_llm.model.layers.7.self_attn.k_proj.weight torch.Size([256, 2048]) True
+28 Oct 23:30    INFO  user_llm.model.layers.7.self_attn.v_proj.weight torch.Size([256, 2048]) True
+28 Oct 23:30    INFO  user_llm.model.layers.7.self_attn.o_proj.weight torch.Size([2048, 2048]) True
+28 Oct 23:30    INFO  user_llm.model.layers.7.mlp.gate_proj.weight torch.Size([5632, 2048]) True
+28 Oct 23:30    INFO  user_llm.model.layers.7.mlp.up_proj.weight torch.Size([5632, 2048]) True
+28 Oct 23:30    INFO  user_llm.model.layers.7.mlp.down_proj.weight torch.Size([2048, 5632]) True
+28 Oct 23:30    INFO  user_llm.model.layers.7.input_layernorm.weight torch.Size([2048]) True
+28 Oct 23:30    INFO  user_llm.model.layers.7.post_attention_layernorm.weight torch.Size([2048]) True
+28 Oct 23:30    INFO  user_llm.model.layers.8.self_attn.q_proj.weight torch.Size([2048, 2048]) True
+28 Oct 23:30    INFO  user_llm.model.layers.8.self_attn.k_proj.weight torch.Size([256, 2048]) True
+28 Oct 23:30    INFO  user_llm.model.layers.8.self_attn.v_proj.weight torch.Size([256, 2048]) True
+28 Oct 23:30    INFO  user_llm.model.layers.8.self_attn.o_proj.weight torch.Size([2048, 2048]) True
+28 Oct 23:30    INFO  user_llm.model.layers.8.mlp.gate_proj.weight torch.Size([5632, 2048]) True
+28 Oct 23:30    INFO  user_llm.model.layers.8.mlp.up_proj.weight torch.Size([5632, 2048]) True
+28 Oct 23:30    INFO  user_llm.model.layers.8.mlp.down_proj.weight torch.Size([2048, 5632]) True
+28 Oct 23:30    INFO  user_llm.model.layers.8.input_layernorm.weight torch.Size([2048]) True
+28 Oct 23:30    INFO  user_llm.model.layers.8.post_attention_layernorm.weight torch.Size([2048]) True
+28 Oct 23:30    INFO  user_llm.model.layers.9.self_attn.q_proj.weight torch.Size([2048, 2048]) True
+28 Oct 23:30    INFO  user_llm.model.layers.9.self_attn.k_proj.weight torch.Size([256, 2048]) True
+28 Oct 23:30    INFO  user_llm.model.layers.9.self_attn.v_proj.weight torch.Size([256, 2048]) True
+28 Oct 23:30    INFO  user_llm.model.layers.9.self_attn.o_proj.weight torch.Size([2048, 2048]) True
+28 Oct 23:30    INFO  user_llm.model.layers.9.mlp.gate_proj.weight torch.Size([5632, 2048]) True
+28 Oct 23:30    INFO  user_llm.model.layers.9.mlp.up_proj.weight torch.Size([5632, 2048]) True
+28 Oct 23:30    INFO  user_llm.model.layers.9.mlp.down_proj.weight torch.Size([2048, 5632]) True
+28 Oct 23:30    INFO  user_llm.model.layers.9.input_layernorm.weight torch.Size([2048]) True
+28 Oct 23:30    INFO  user_llm.model.layers.9.post_attention_layernorm.weight torch.Size([2048]) True
+28 Oct 23:30    INFO  user_llm.model.layers.10.self_attn.q_proj.weight torch.Size([2048, 2048]) True
+28 Oct 23:30    INFO  user_llm.model.layers.10.self_attn.k_proj.weight torch.Size([256, 2048]) True
+28 Oct 23:30    INFO  user_llm.model.layers.10.self_attn.v_proj.weight torch.Size([256, 2048]) True
+28 Oct 23:30    INFO  user_llm.model.layers.10.self_attn.o_proj.weight torch.Size([2048, 2048]) True
+28 Oct 23:30    INFO  user_llm.model.layers.10.mlp.gate_proj.weight torch.Size([5632, 2048]) True
+28 Oct 23:30    INFO  user_llm.model.layers.10.mlp.up_proj.weight torch.Size([5632, 2048]) True
+28 Oct 23:30    INFO  user_llm.model.layers.10.mlp.down_proj.weight torch.Size([2048, 5632]) True
+28 Oct 23:30    INFO  user_llm.model.layers.10.input_layernorm.weight torch.Size([2048]) True
+28 Oct 23:30    INFO  user_llm.model.layers.10.post_attention_layernorm.weight torch.Size([2048]) True
+28 Oct 23:30    INFO  user_llm.model.layers.11.self_attn.q_proj.weight torch.Size([2048, 2048]) True
+28 Oct 23:30    INFO  user_llm.model.layers.11.self_attn.k_proj.weight torch.Size([256, 2048]) True
+28 Oct 23:30    INFO  user_llm.model.layers.11.self_attn.v_proj.weight torch.Size([256, 2048]) True
+28 Oct 23:30    INFO  user_llm.model.layers.11.self_attn.o_proj.weight torch.Size([2048, 2048]) True
+28 Oct 23:30    INFO  user_llm.model.layers.11.mlp.gate_proj.weight torch.Size([5632, 2048]) True
+28 Oct 23:30    INFO  user_llm.model.layers.11.mlp.up_proj.weight torch.Size([5632, 2048]) True
+28 Oct 23:30    INFO  user_llm.model.layers.11.mlp.down_proj.weight torch.Size([2048, 5632]) True
+28 Oct 23:30    INFO  user_llm.model.layers.11.input_layernorm.weight torch.Size([2048]) True
+28 Oct 23:30    INFO  user_llm.model.layers.11.post_attention_layernorm.weight torch.Size([2048]) True
+28 Oct 23:30    INFO  user_llm.model.layers.12.self_attn.q_proj.weight torch.Size([2048, 2048]) True
+28 Oct 23:30    INFO  user_llm.model.layers.12.self_attn.k_proj.weight torch.Size([256, 2048]) True
+28 Oct 23:30    INFO  user_llm.model.layers.12.self_attn.v_proj.weight torch.Size([256, 2048]) True
+28 Oct 23:30    INFO  user_llm.model.layers.12.self_attn.o_proj.weight torch.Size([2048, 2048]) True
+28 Oct 23:30    INFO  user_llm.model.layers.12.mlp.gate_proj.weight torch.Size([5632, 2048]) True
+28 Oct 23:30    INFO  user_llm.model.layers.12.mlp.up_proj.weight torch.Size([5632, 2048]) True
+28 Oct 23:30    INFO  user_llm.model.layers.12.mlp.down_proj.weight torch.Size([2048, 5632]) True
+28 Oct 23:30    INFO  user_llm.model.layers.12.input_layernorm.weight torch.Size([2048]) True
+28 Oct 23:30    INFO  user_llm.model.layers.12.post_attention_layernorm.weight torch.Size([2048]) True
+28 Oct 23:30    INFO  user_llm.model.layers.13.self_attn.q_proj.weight torch.Size([2048, 2048]) True
+28 Oct 23:30    INFO  user_llm.model.layers.13.self_attn.k_proj.weight torch.Size([256, 2048]) True
+28 Oct 23:30    INFO  user_llm.model.layers.13.self_attn.v_proj.weight torch.Size([256, 2048]) True
+28 Oct 23:30    INFO  user_llm.model.layers.13.self_attn.o_proj.weight torch.Size([2048, 2048]) True
+28 Oct 23:30    INFO  user_llm.model.layers.13.mlp.gate_proj.weight torch.Size([5632, 2048]) True
+28 Oct 23:30    INFO  user_llm.model.layers.13.mlp.up_proj.weight torch.Size([5632, 2048]) True
+28 Oct 23:30    INFO  user_llm.model.layers.13.mlp.down_proj.weight torch.Size([2048, 5632]) True
+28 Oct 23:30    INFO  user_llm.model.layers.13.input_layernorm.weight torch.Size([2048]) True
+28 Oct 23:30    INFO  user_llm.model.layers.13.post_attention_layernorm.weight torch.Size([2048]) True
+28 Oct 23:30    INFO  user_llm.model.layers.14.self_attn.q_proj.weight torch.Size([2048, 2048]) True
+28 Oct 23:30    INFO  user_llm.model.layers.14.self_attn.k_proj.weight torch.Size([256, 2048]) True
+28 Oct 23:30    INFO  user_llm.model.layers.14.self_attn.v_proj.weight torch.Size([256, 2048]) True
+28 Oct 23:30    INFO  user_llm.model.layers.14.self_attn.o_proj.weight torch.Size([2048, 2048]) True
+28 Oct 23:30    INFO  user_llm.model.layers.14.mlp.gate_proj.weight torch.Size([5632, 2048]) True
+28 Oct 23:30    INFO  user_llm.model.layers.14.mlp.up_proj.weight torch.Size([5632, 2048]) True
+28 Oct 23:30    INFO  user_llm.model.layers.14.mlp.down_proj.weight torch.Size([2048, 5632]) True
+28 Oct 23:30    INFO  user_llm.model.layers.14.input_layernorm.weight torch.Size([2048]) True
+28 Oct 23:30    INFO  user_llm.model.layers.14.post_attention_layernorm.weight torch.Size([2048]) True
+28 Oct 23:30    INFO  user_llm.model.layers.15.self_attn.q_proj.weight torch.Size([2048, 2048]) True
+28 Oct 23:30    INFO  user_llm.model.layers.15.self_attn.k_proj.weight torch.Size([256, 2048]) True
+28 Oct 23:30    INFO  user_llm.model.layers.15.self_attn.v_proj.weight torch.Size([256, 2048]) True
+28 Oct 23:30    INFO  user_llm.model.layers.15.self_attn.o_proj.weight torch.Size([2048, 2048]) True
+28 Oct 23:30    INFO  user_llm.model.layers.15.mlp.gate_proj.weight torch.Size([5632, 2048]) True
+28 Oct 23:30    INFO  user_llm.model.layers.15.mlp.up_proj.weight torch.Size([5632, 2048]) True
+28 Oct 23:30    INFO  user_llm.model.layers.15.mlp.down_proj.weight torch.Size([2048, 5632]) True
+28 Oct 23:30    INFO  user_llm.model.layers.15.input_layernorm.weight torch.Size([2048]) True
+28 Oct 23:30    INFO  user_llm.model.layers.15.post_attention_layernorm.weight torch.Size([2048]) True
+28 Oct 23:30    INFO  user_llm.model.layers.16.self_attn.q_proj.weight torch.Size([2048, 2048]) True
+28 Oct 23:30    INFO  user_llm.model.layers.16.self_attn.k_proj.weight torch.Size([256, 2048]) True
+28 Oct 23:30    INFO  user_llm.model.layers.16.self_attn.v_proj.weight torch.Size([256, 2048]) True
+28 Oct 23:30    INFO  user_llm.model.layers.16.self_attn.o_proj.weight torch.Size([2048, 2048]) True
+28 Oct 23:30    INFO  user_llm.model.layers.16.mlp.gate_proj.weight torch.Size([5632, 2048]) True
+28 Oct 23:30    INFO  user_llm.model.layers.16.mlp.up_proj.weight torch.Size([5632, 2048]) True
+28 Oct 23:30    INFO  user_llm.model.layers.16.mlp.down_proj.weight torch.Size([2048, 5632]) True
+28 Oct 23:30    INFO  user_llm.model.layers.16.input_layernorm.weight torch.Size([2048]) True
+28 Oct 23:30    INFO  user_llm.model.layers.16.post_attention_layernorm.weight torch.Size([2048]) True
+28 Oct 23:30    INFO  user_llm.model.layers.17.self_attn.q_proj.weight torch.Size([2048, 2048]) True
+28 Oct 23:30    INFO  user_llm.model.layers.17.self_attn.k_proj.weight torch.Size([256, 2048]) True
+28 Oct 23:30    INFO  user_llm.model.layers.17.self_attn.v_proj.weight torch.Size([256, 2048]) True
+28 Oct 23:30    INFO  user_llm.model.layers.17.self_attn.o_proj.weight torch.Size([2048, 2048]) True
+28 Oct 23:30    INFO  user_llm.model.layers.17.mlp.gate_proj.weight torch.Size([5632, 2048]) True
+28 Oct 23:30    INFO  user_llm.model.layers.17.mlp.up_proj.weight torch.Size([5632, 2048]) True
+28 Oct 23:30    INFO  user_llm.model.layers.17.mlp.down_proj.weight torch.Size([2048, 5632]) True
+28 Oct 23:30    INFO  user_llm.model.layers.17.input_layernorm.weight torch.Size([2048]) True
+28 Oct 23:30    INFO  user_llm.model.layers.17.post_attention_layernorm.weight torch.Size([2048]) True
+28 Oct 23:30    INFO  user_llm.model.layers.18.self_attn.q_proj.weight torch.Size([2048, 2048]) True
+28 Oct 23:30    INFO  user_llm.model.layers.18.self_attn.k_proj.weight torch.Size([256, 2048]) True
+28 Oct 23:30    INFO  user_llm.model.layers.18.self_attn.v_proj.weight torch.Size([256, 2048]) True
+28 Oct 23:30    INFO  user_llm.model.layers.18.self_attn.o_proj.weight torch.Size([2048, 2048]) True
+28 Oct 23:30    INFO  user_llm.model.layers.18.mlp.gate_proj.weight torch.Size([5632, 2048]) True
+28 Oct 23:30    INFO  user_llm.model.layers.18.mlp.up_proj.weight torch.Size([5632, 2048]) True
+28 Oct 23:30    INFO  user_llm.model.layers.18.mlp.down_proj.weight torch.Size([2048, 5632]) True
+28 Oct 23:30    INFO  user_llm.model.layers.18.input_layernorm.weight torch.Size([2048]) True
+28 Oct 23:30    INFO  user_llm.model.layers.18.post_attention_layernorm.weight torch.Size([2048]) True
+28 Oct 23:30    INFO  user_llm.model.layers.19.self_attn.q_proj.weight torch.Size([2048, 2048]) True
+28 Oct 23:30    INFO  user_llm.model.layers.19.self_attn.k_proj.weight torch.Size([256, 2048]) True
+28 Oct 23:30    INFO  user_llm.model.layers.19.self_attn.v_proj.weight torch.Size([256, 2048]) True
+28 Oct 23:30    INFO  user_llm.model.layers.19.self_attn.o_proj.weight torch.Size([2048, 2048]) True
+28 Oct 23:30    INFO  user_llm.model.layers.19.mlp.gate_proj.weight torch.Size([5632, 2048]) True
+28 Oct 23:30    INFO  user_llm.model.layers.19.mlp.up_proj.weight torch.Size([5632, 2048]) True
+28 Oct 23:30    INFO  user_llm.model.layers.19.mlp.down_proj.weight torch.Size([2048, 5632]) True
+28 Oct 23:30    INFO  user_llm.model.layers.19.input_layernorm.weight torch.Size([2048]) True
+28 Oct 23:30    INFO  user_llm.model.layers.19.post_attention_layernorm.weight torch.Size([2048]) True
+28 Oct 23:30    INFO  user_llm.model.layers.20.self_attn.q_proj.weight torch.Size([2048, 2048]) True
+28 Oct 23:30    INFO  user_llm.model.layers.20.self_attn.k_proj.weight torch.Size([256, 2048]) True
+28 Oct 23:30    INFO  user_llm.model.layers.20.self_attn.v_proj.weight torch.Size([256, 2048]) True
+28 Oct 23:30    INFO  user_llm.model.layers.20.self_attn.o_proj.weight torch.Size([2048, 2048]) True
+28 Oct 23:30    INFO  user_llm.model.layers.20.mlp.gate_proj.weight torch.Size([5632, 2048]) True
+28 Oct 23:30    INFO  user_llm.model.layers.20.mlp.up_proj.weight torch.Size([5632, 2048]) True
+28 Oct 23:30    INFO  user_llm.model.layers.20.mlp.down_proj.weight torch.Size([2048, 5632]) True
+28 Oct 23:30    INFO  user_llm.model.layers.20.input_layernorm.weight torch.Size([2048]) True
+28 Oct 23:30    INFO  user_llm.model.layers.20.post_attention_layernorm.weight torch.Size([2048]) True
+28 Oct 23:30    INFO  user_llm.model.layers.21.self_attn.q_proj.weight torch.Size([2048, 2048]) True
+28 Oct 23:30    INFO  user_llm.model.layers.21.self_attn.k_proj.weight torch.Size([256, 2048]) True
+28 Oct 23:30    INFO  user_llm.model.layers.21.self_attn.v_proj.weight torch.Size([256, 2048]) True
+28 Oct 23:30    INFO  user_llm.model.layers.21.self_attn.o_proj.weight torch.Size([2048, 2048]) True
+28 Oct 23:30    INFO  user_llm.model.layers.21.mlp.gate_proj.weight torch.Size([5632, 2048]) True
+28 Oct 23:30    INFO  user_llm.model.layers.21.mlp.up_proj.weight torch.Size([5632, 2048]) True
+28 Oct 23:30    INFO  user_llm.model.layers.21.mlp.down_proj.weight torch.Size([2048, 5632]) True
+28 Oct 23:30    INFO  user_llm.model.layers.21.input_layernorm.weight torch.Size([2048]) True
+28 Oct 23:30    INFO  user_llm.model.layers.21.post_attention_layernorm.weight torch.Size([2048]) True
+28 Oct 23:30    INFO  user_llm.model.norm.weight torch.Size([2048]) True
+28 Oct 23:30    INFO  user_llm.lm_head.weight torch.Size([32000, 2048]) True
+28 Oct 23:30    INFO  
+World_Size = 1 
+
+28 Oct 23:30    INFO  
+General Hyper Parameters:
+seed = 2020
+state = INFO
+use_text = True
+reproducibility = True
+checkpoint_dir = /data/user_data/jingyuah/HLLM_weights/checkpoints/tiny_llama_1.1b_pixelrec_200K
+show_progress = True
+log_wandb = False
+data_path = /data/user_data/jingyuah/HLLM_weights/data/dataset
+strategy = deepspeed
+precision = bf16-mixed
+model = HLLM
+
+Training Hyper Parameters:
+epochs = 5
+train_batch_size = 8
+optim_args = {'learning_rate': 0.0001, 'weight_decay': 0.01}
+eval_step = 1
+stopping_step = 5
+
+Evaluation Hyper Parameters:
+eval_batch_size = 256
+topk = [5, 10, 50, 200]
+metrics = ['Recall', 'NDCG']
+valid_metric = NDCG@200
+metric_decimal_place = 7
+eval_type = EvaluatorType.RANKING
+valid_metric_bigger = True
+
+Dataset Hyper Parameters:
+MAX_ITEM_LIST_LENGTH = 10
+MAX_TEXT_LENGTH = 256
+text_keys = ['title', 'tag', 'description']
+item_prompt = Compress the following sentence into embedding: 
+
+Other Hyper Parameters: 
+wandb_project = REC
+text_path = /data/user_data/jingyuah/HLLM_weights/data/information/Pixel200K.csv
+item_emb_token_n = 1
+loss = nce
+scheduler_args = {'type': 'cosine', 'warmup': 0.1}
+stage = 2
+item_pretrain_dir = /data/user_data/jingyuah/HLLM_weights/checkpoints/TinyLlama-1.1B-intermediate-step-1431k-3T
+item_llm_init = True
+user_pretrain_dir = /data/user_data/jingyuah/HLLM_weights/checkpoints/TinyLlama-1.1B-intermediate-step-1431k-3T
+user_llm_init = True
+use_ft_flash_attn = True
+MODEL_INPUT_TYPE = InputType.SEQ
+device = cuda:0
+
+
+28 Oct 23:30    INFO  Pixel200K
+The number of users: 200001
+Average actions of users: 19.82828
+The number of items: 96283
+Average actions of items: 41.187927130720176
+The number of inters: 3965656
+The sparsity of the dataset: 99.9794063532928%
+28 Oct 23:30    INFO  HLLM(
+  (item_llm): LlamaForCausalLM(
+    (model): LlamaModel(
+      (embed_tokens): Embedding(32000, 2048)
+      (layers): ModuleList(
+        (0-21): 22 x LlamaDecoderLayer(
+          (self_attn): LlamaAttention(
+            (q_proj): Linear(in_features=2048, out_features=2048, bias=False)
+            (k_proj): Linear(in_features=2048, out_features=256, bias=False)
+            (v_proj): Linear(in_features=2048, out_features=256, bias=False)
+            (o_proj): Linear(in_features=2048, out_features=2048, bias=False)
+            (rotary_emb): LlamaRotaryEmbedding()
+          )
+          (mlp): LlamaMLP(
+            (gate_proj): Linear(in_features=2048, out_features=5632, bias=False)
+            (up_proj): Linear(in_features=2048, out_features=5632, bias=False)
+            (down_proj): Linear(in_features=5632, out_features=2048, bias=False)
+            (act_fn): SiLUActivation()
+          )
+          (input_layernorm): LlamaRMSNorm()
+          (post_attention_layernorm): LlamaRMSNorm()
+        )
+      )
+      (norm): LlamaRMSNorm()
+    )
+    (lm_head): Linear(in_features=2048, out_features=32000, bias=False)
+  )
+  (user_llm): LlamaForCausalLM(
+    (model): LlamaModel(
+      (embed_tokens): Embedding(32000, 2048)
+      (layers): ModuleList(
+        (0-21): 22 x LlamaDecoderLayer(
+          (self_attn): LlamaAttention(
+            (q_proj): Linear(in_features=2048, out_features=2048, bias=False)
+            (k_proj): Linear(in_features=2048, out_features=256, bias=False)
+            (v_proj): Linear(in_features=2048, out_features=256, bias=False)
+            (o_proj): Linear(in_features=2048, out_features=2048, bias=False)
+            (rotary_emb): LlamaRotaryEmbedding()
+          )
+          (mlp): LlamaMLP(
+            (gate_proj): Linear(in_features=2048, out_features=5632, bias=False)
+            (up_proj): Linear(in_features=2048, out_features=5632, bias=False)
+            (down_proj): Linear(in_features=5632, out_features=2048, bias=False)
+            (act_fn): SiLUActivation()
+          )
+          (input_layernorm): LlamaRMSNorm()
+          (post_attention_layernorm): LlamaRMSNorm()
+        )
+      )
+      (norm): LlamaRMSNorm()
+    )
+    (lm_head): Linear(in_features=2048, out_features=32000, bias=False)
+  )
+)
+Trainable parameters: 2200098817.0
+28 Oct 23:30    INFO  Use consine scheduler with 18970.5 warmup 189705 total steps
+28 Oct 23:30    INFO  Use deepspeed strategy
+Train [  0/  5]:   0%|          | 0/37941 [00:00<?, ?it/s]data['pos_input_ids'].size():  torch.Size([7415])
+batch_idx:  0
+(31399346176, 85097971712)
+Train [  0/  5]:   0%|          | 20/37941 [00:03<1:59:14,  5.30it/s, lr: 0.0000000 loss: 4.6250 data: 0.858 fwd: 1.353 bwd: 1.562 nce_samples: 89.000 nce_top1_acc: 0.027 nce_top5_acc: 0.135 nce_top10_acc: 0.189 nce_top50_acc: 0.649]28 Oct 23:30    INFO  
+--------------------------------------------------
+data['pos_input_ids'].size():  torch.Size([6656])
+batch_idx:  1
+(11577065472, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7109])
+batch_idx:  2
+(11577065472, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7210])
+batch_idx:  3
+(10048241664, 85097971712)
+data['pos_input_ids'].size():  torch.Size([6853])
+batch_idx:  4
+(10048241664, 85097971712)
+data['pos_input_ids'].size():  torch.Size([8020])
+batch_idx:  5
+(8708161536, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7054])
+batch_idx:  6
+(8708161536, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7386])
+batch_idx:  7
+(8708161536, 85097971712)
+data['pos_input_ids'].size():  torch.Size([6977])
+batch_idx:  8
+(8708161536, 85097971712)
+data['pos_input_ids'].size():  torch.Size([8134])
+batch_idx:  9
+(8708161536, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7579])
+batch_idx:  10
+(8708161536, 85097971712)
+data['pos_input_ids'].size():  torch.Size([8379])
+batch_idx:  11
+Train [  0/  5]:   0%|          | 20/37941 [00:19<1:59:14,  5.30it/s, lr: 0.0000000 loss: 4.6250 data: 0.858 fwd: 1.353 bwd: 1.562 nce_samples: 89.000 nce_top1_acc: 0.027 nce_top5_acc: 0.135 nce_top10_acc: 0.189 nce_top50_acc: 0.649](4947968000, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7751])
+batch_idx:  12
+(4947968000, 85097971712)
+data['pos_input_ids'].size():  torch.Size([6917])
+batch_idx:  13
+(4947968000, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7468])
+batch_idx:  14
+(4947968000, 85097971712)
+data['pos_input_ids'].size():  torch.Size([8357])
+batch_idx:  15
+(4947968000, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7641])
+batch_idx:  16
+(4947968000, 85097971712)
+data['pos_input_ids'].size():  torch.Size([6490])
+batch_idx:  17
+(4947968000, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7986])
+batch_idx:  18
+(4947968000, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7709])
+batch_idx:  19
+(4947968000, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7339])
+batch_idx:  20
+(4947968000, 85097971712)
+Train [  0/  5]:   0%|          | 40/37941 [00:34<10:12:15,  1.03it/s, lr: 0.0000001 loss: 4.6250 data: 0.014 fwd: 0.630 bwd: 0.926 nce_samples: 89.000 nce_top1_acc: 0.051 nce_top5_acc: 0.128 nce_top10_acc: 0.218 nce_top50_acc: 0.628]28 Oct 23:31    INFO  
+--------------------------------------------------
+data['pos_input_ids'].size():  torch.Size([6637])
+batch_idx:  21
+(4947968000, 85097971712)
+data['pos_input_ids'].size():  torch.Size([6983])
+batch_idx:  22
+(4947968000, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7227])
+batch_idx:  23
+(4947968000, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7449])
+batch_idx:  24
+(4947968000, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7063])
+batch_idx:  25
+(4947968000, 85097971712)
+data['pos_input_ids'].size():  torch.Size([8847])
+batch_idx:  26
+(4947968000, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7812])
+batch_idx:  27
+(4947968000, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7648])
+batch_idx:  28
+(4947968000, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7420])
+batch_idx:  29
+(4947968000, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7859])
+batch_idx:  30
+(4947968000, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7033])
+batch_idx:  31
+(4947968000, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7391])
+batch_idx:  32
+(4947968000, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7260])
+batch_idx:  33
+(4947968000, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7482])
+batch_idx:  34
+(4947968000, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7066])
+batch_idx:  35
+(4947968000, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7346])
+batch_idx:  36
+(4947968000, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7191])
+batch_idx:  37
+(4947968000, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7754])
+batch_idx:  38
+(4947968000, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7818])
+batch_idx:  39
+(3475767296, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7887])
+batch_idx:  40
+(3475767296, 85097971712)
+Train [  0/  5]:   0%|          | 60/37941 [01:04<12:50:35,  1.22s/it, lr: 0.0000002 loss: 4.6875 data: 0.001 fwd: 0.616 bwd: 0.911 nce_samples: 89.000 nce_top1_acc: 0.029 nce_top5_acc: 0.116 nce_top10_acc: 0.188 nce_top50_acc: 0.609]28 Oct 23:31    INFO  
+--------------------------------------------------
+data['pos_input_ids'].size():  torch.Size([7222])
+batch_idx:  41
+(3475767296, 85097971712)
+data['pos_input_ids'].size():  torch.Size([8086])
+batch_idx:  42
+(3475767296, 85097971712)
+data['pos_input_ids'].size():  torch.Size([6670])
+batch_idx:  43
+(3475767296, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7733])
+batch_idx:  44
+(3475767296, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7737])
+batch_idx:  45
+(3475767296, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7902])
+batch_idx:  46
+(3475767296, 85097971712)
+data['pos_input_ids'].size():  torch.Size([8251])
+batch_idx:  47
+(3475767296, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7892])
+batch_idx:  48
+(3475767296, 85097971712)
+data['pos_input_ids'].size():  torch.Size([9156])
+batch_idx:  49
+(3475767296, 85097971712)
+data['pos_input_ids'].size():  torch.Size([8023])
+batch_idx:  50
+(2519465984, 85097971712)
+data['pos_input_ids'].size():  torch.Size([6910])
+batch_idx:  51
+(2519465984, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7715])
+batch_idx:  52
+(2519465984, 85097971712)
+data['pos_input_ids'].size():  torch.Size([6846])
+batch_idx:  53
+(2519465984, 85097971712)
+data['pos_input_ids'].size():  torch.Size([8266])
+batch_idx:  54
+(2519465984, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7901])
+batch_idx:  55
+(2519465984, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7983])
+batch_idx:  56
+(1527513088, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7982])
+batch_idx:  57
+(1527513088, 85097971712)
+data['pos_input_ids'].size():  torch.Size([6843])
+batch_idx:  58
+(1527513088, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7905])
+batch_idx:  59
+(1527513088, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7493])
+batch_idx:  60
+(1527513088, 85097971712)
+Train [  0/  5]:   0%|          | 80/37941 [01:35<14:10:15,  1.35s/it, lr: 0.0000003 loss: 4.5625 data: 0.001 fwd: 0.600 bwd: 0.906 nce_samples: 89.000 nce_top1_acc: 0.028 nce_top5_acc: 0.111 nce_top10_acc: 0.153 nce_top50_acc: 0.722]28 Oct 23:32    INFO  
+--------------------------------------------------
+data['pos_input_ids'].size():  torch.Size([8403])
+batch_idx:  61
+(1420558336, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7256])
+batch_idx:  62
+(1384906752, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7748])
+batch_idx:  63
+(1378615296, 85097971712)
+data['pos_input_ids'].size():  torch.Size([6710])
+batch_idx:  64
+(1378615296, 85097971712)
+data['pos_input_ids'].size():  torch.Size([6448])
+batch_idx:  65
+(1374420992, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7495])
+batch_idx:  66
+(1370226688, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7081])
+batch_idx:  67
+(1370226688, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7529])
+batch_idx:  68
+(1370226688, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7819])
+batch_idx:  69
+(1370226688, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7171])
+batch_idx:  70
+(1370226688, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7618])
+batch_idx:  71
+(1370226688, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7803])
+batch_idx:  72
+(1370226688, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7543])
+batch_idx:  73
+(1370226688, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7140])
+batch_idx:  74
+(1370226688, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7021])
+batch_idx:  75
+(1370226688, 85097971712)
+data['pos_input_ids'].size():  torch.Size([6585])
+batch_idx:  76
+(1370226688, 85097971712)
+data['pos_input_ids'].size():  torch.Size([6533])
+batch_idx:  77
+(1370226688, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7510])
+batch_idx:  78
+(1370226688, 85097971712)
+data['pos_input_ids'].size():  torch.Size([8474])
+batch_idx:  79
+(1370226688, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7543])
+batch_idx:  80
+(1370226688, 85097971712)
+Train [  0/  5]:   0%|          | 100/37941 [02:06<14:58:56,  1.43s/it, lr: 0.0000004 loss: 4.5000 data: 0.001 fwd: 0.640 bwd: 0.947 nce_samples: 89.000 nce_top1_acc: 0.042 nce_top5_acc: 0.111 nce_top10_acc: 0.236 nce_top50_acc: 0.611]28 Oct 23:32    INFO  
+--------------------------------------------------
+data['pos_input_ids'].size():  torch.Size([7430])
+batch_idx:  81
+(1370226688, 85097971712)
+data['pos_input_ids'].size():  torch.Size([8069])
+batch_idx:  82
+(1370226688, 85097971712)
+data['pos_input_ids'].size():  torch.Size([6540])
+batch_idx:  83
+(1370226688, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7849])
+batch_idx:  84
+(1370226688, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7515])
+batch_idx:  85
+(1370226688, 85097971712)
+data['pos_input_ids'].size():  torch.Size([6602])
+batch_idx:  86
+(1370226688, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7345])
+batch_idx:  87
+(1370226688, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7363])
+batch_idx:  88
+(1370226688, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7195])
+batch_idx:  89
+(1370226688, 85097971712)
+data['pos_input_ids'].size():  torch.Size([6516])
+batch_idx:  90
+(1370226688, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7157])
+batch_idx:  91
+(1370226688, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7949])
+batch_idx:  92
+(1370226688, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7276])
+batch_idx:  93
+(1370226688, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7072])
+batch_idx:  94
+(1370226688, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7431])
+batch_idx:  95
+(1370226688, 85097971712)
+data['pos_input_ids'].size():  torch.Size([6790])
+batch_idx:  96
+(1370226688, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7577])
+batch_idx:  97
+(1370226688, 85097971712)
+data['pos_input_ids'].size():  torch.Size([8450])
+batch_idx:  98
+(1370226688, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7642])
+batch_idx:  99
+(1370226688, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7574])
+batch_idx:  100
+(1370226688, 85097971712)
+Train [  0/  5]:   0%|          | 120/37941 [02:36<15:18:10,  1.46s/it, lr: 0.0000005 loss: 4.5625 data: 0.001 fwd: 0.591 bwd: 0.898 nce_samples: 89.000 nce_top1_acc: 0.067 nce_top5_acc: 0.173 nce_top10_acc: 0.213 nce_top50_acc: 0.693]28 Oct 23:33    INFO  
+--------------------------------------------------
+data['pos_input_ids'].size():  torch.Size([6737])
+batch_idx:  101
+(1370226688, 85097971712)
+data['pos_input_ids'].size():  torch.Size([6737])
+batch_idx:  102
+(1370226688, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7810])
+batch_idx:  103
+(1370226688, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7712])
+batch_idx:  104
+(1370226688, 85097971712)
+data['pos_input_ids'].size():  torch.Size([6811])
+batch_idx:  105
+(1370226688, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7146])
+batch_idx:  106
+(1370226688, 85097971712)
+data['pos_input_ids'].size():  torch.Size([6778])
+batch_idx:  107
+(1370226688, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7284])
+batch_idx:  108
+(1370226688, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7864])
+batch_idx:  109
+(1370226688, 85097971712)
+data['pos_input_ids'].size():  torch.Size([6538])
+batch_idx:  110
+(1370226688, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7142])
+batch_idx:  111
+(1370226688, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7008])
+batch_idx:  112
+(1370226688, 85097971712)
+data['pos_input_ids'].size():  torch.Size([6959])
+batch_idx:  113
+(1370226688, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7555])
+batch_idx:  114
+(1370226688, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7264])
+batch_idx:  115
+(1370226688, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7609])
+batch_idx:  116
+(1370226688, 85097971712)
+data['pos_input_ids'].size():  torch.Size([8368])
+batch_idx:  117
+(1370226688, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7760])
+batch_idx:  118
+(1370226688, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7235])
+batch_idx:  119
+(1370226688, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7152])
+batch_idx:  120
+(1370226688, 85097971712)
+Train [  0/  5]:   0%|          | 140/37941 [03:07<15:31:04,  1.48s/it, lr: 0.0000006 loss: 4.4375 data: 0.001 fwd: 0.657 bwd: 0.963 nce_samples: 89.000 nce_top1_acc: 0.042 nce_top5_acc: 0.181 nce_top10_acc: 0.250 nce_top50_acc: 0.708]28 Oct 23:33    INFO  
+--------------------------------------------------
+data['pos_input_ids'].size():  torch.Size([6790])
+batch_idx:  121
+(1370226688, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7795])
+batch_idx:  122
+(1370226688, 85097971712)
+data['pos_input_ids'].size():  torch.Size([6133])
+batch_idx:  123
+(1370226688, 85097971712)
+data['pos_input_ids'].size():  torch.Size([6744])
+batch_idx:  124
+(1370226688, 85097971712)
+data['pos_input_ids'].size():  torch.Size([6963])
+batch_idx:  125
+(1370226688, 85097971712)
+data['pos_input_ids'].size():  torch.Size([6994])
+batch_idx:  126
+(1370226688, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7884])
+batch_idx:  127
+(1370226688, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7898])
+batch_idx:  128
+(1370226688, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7123])
+batch_idx:  129
+(1370226688, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7907])
+batch_idx:  130
+(1370226688, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7708])
+batch_idx:  131
+(1368129536, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7426])
+batch_idx:  132
+(1368129536, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7343])
+batch_idx:  133
+(1368129536, 85097971712)
+data['pos_input_ids'].size():  torch.Size([8044])
+batch_idx:  134
+(1368129536, 85097971712)
+data['pos_input_ids'].size():  torch.Size([6811])
+batch_idx:  135
+(1368129536, 85097971712)
+data['pos_input_ids'].size():  torch.Size([6986])
+batch_idx:  136
+(1368129536, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7206])
+batch_idx:  137
+(1368129536, 85097971712)
+data['pos_input_ids'].size():  torch.Size([6853])
+batch_idx:  138
+(1368129536, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7676])
+batch_idx:  139
+(1368129536, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7117])
+batch_idx:  140
+(1368129536, 85097971712)
+Train [  0/  5]:   0%|          | 160/37941 [03:37<15:40:30,  1.49s/it, lr: 0.0000007 loss: 4.3438 data: 0.001 fwd: 0.595 bwd: 0.902 nce_samples: 89.000 nce_top1_acc: 0.054 nce_top5_acc: 0.176 nce_top10_acc: 0.243 nce_top50_acc: 0.770]28 Oct 23:34    INFO  
+--------------------------------------------------
+data['pos_input_ids'].size():  torch.Size([8235])
+batch_idx:  141
+(1368129536, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7165])
+batch_idx:  142
+(1368129536, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7277])
+batch_idx:  143
+(1368129536, 85097971712)
+data['pos_input_ids'].size():  torch.Size([8051])
+batch_idx:  144
+(1368129536, 85097971712)
+data['pos_input_ids'].size():  torch.Size([6568])
+batch_idx:  145
+(1368129536, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7411])
+batch_idx:  146
+(1368129536, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7005])
+batch_idx:  147
+(1368129536, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7835])
+batch_idx:  148
+(1368129536, 85097971712)
+data['pos_input_ids'].size():  torch.Size([8663])
+batch_idx:  149
+(1368129536, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7678])
+batch_idx:  150
+(1368129536, 85097971712)
+data['pos_input_ids'].size():  torch.Size([9104])
+batch_idx:  151
+(1368129536, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7612])
+batch_idx:  152
+(1368129536, 85097971712)
+data['pos_input_ids'].size():  torch.Size([6442])
+batch_idx:  153
+(1368129536, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7579])
+batch_idx:  154
+(1368129536, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7482])
+batch_idx:  155
+(1368129536, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7492])
+batch_idx:  156
+(1368129536, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7837])
+batch_idx:  157
+(1368129536, 85097971712)
+data['pos_input_ids'].size():  torch.Size([6964])
+batch_idx:  158
+(1368129536, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7382])
+batch_idx:  159
+(1368129536, 85097971712)
+data['pos_input_ids'].size():  torch.Size([6353])
+batch_idx:  160
+(1368129536, 85097971712)
+Train [  0/  5]:   0%|          | 180/37941 [04:09<15:53:27,  1.51s/it, lr: 0.0000008 loss: 4.3125 data: 0.001 fwd: 0.592 bwd: 0.894 nce_samples: 89.000 nce_top1_acc: 0.074 nce_top5_acc: 0.206 nce_top10_acc: 0.338 nce_top50_acc: 0.765]28 Oct 23:34    INFO  
+--------------------------------------------------
+data['pos_input_ids'].size():  torch.Size([9051])
+batch_idx:  161
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([6979])
+batch_idx:  162
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([6335])
+batch_idx:  163
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7267])
+batch_idx:  164
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([6721])
+batch_idx:  165
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([6802])
+batch_idx:  166
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([6738])
+batch_idx:  167
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([8162])
+batch_idx:  168
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([6771])
+batch_idx:  169
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7796])
+batch_idx:  170
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([8440])
+batch_idx:  171
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7049])
+batch_idx:  172
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([6430])
+batch_idx:  173
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7557])
+batch_idx:  174
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7409])
+batch_idx:  175
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([8092])
+batch_idx:  176
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7842])
+batch_idx:  177
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7278])
+batch_idx:  178
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7432])
+batch_idx:  179
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7180])
+batch_idx:  180
+(374079488, 85097971712)
+Train [  0/  5]:   1%|          | 200/37941 [04:41<16:08:03,  1.54s/it, lr: 0.0000010 loss: 4.3438 data: 0.002 fwd: 0.620 bwd: 0.924 nce_samples: 89.000 nce_top1_acc: 0.076 nce_top5_acc: 0.182 nce_top10_acc: 0.303 nce_top50_acc: 0.818]28 Oct 23:35    INFO  
+--------------------------------------------------
+data['pos_input_ids'].size():  torch.Size([7676])
+batch_idx:  181
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7047])
+batch_idx:  182
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([8238])
+batch_idx:  183
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7888])
+batch_idx:  184
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7463])
+batch_idx:  185
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([6458])
+batch_idx:  186
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7828])
+batch_idx:  187
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7861])
+batch_idx:  188
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([6987])
+batch_idx:  189
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([8183])
+batch_idx:  190
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7725])
+batch_idx:  191
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7667])
+batch_idx:  192
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7678])
+batch_idx:  193
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([6871])
+batch_idx:  194
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7045])
+batch_idx:  195
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7429])
+batch_idx:  196
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([6288])
+batch_idx:  197
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([6870])
+batch_idx:  198
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([6701])
+batch_idx:  199
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7175])
+batch_idx:  200
+(374079488, 85097971712)
+Train [  0/  5]:   1%|          | 220/37941 [05:11<16:08:08,  1.54s/it, lr: 0.0000011 loss: 4.2812 data: 0.001 fwd: 0.580 bwd: 0.883 nce_samples: 89.000 nce_top1_acc: 0.062 nce_top5_acc: 0.163 nce_top10_acc: 0.312 nce_top50_acc: 0.863]28 Oct 23:36    INFO  
+--------------------------------------------------
+data['pos_input_ids'].size():  torch.Size([7157])
+batch_idx:  201
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7707])
+batch_idx:  202
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([6951])
+batch_idx:  203
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([6780])
+batch_idx:  204
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7339])
+batch_idx:  205
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7623])
+batch_idx:  206
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7426])
+batch_idx:  207
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7121])
+batch_idx:  208
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([8429])
+batch_idx:  209
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7417])
+batch_idx:  210
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([8828])
+batch_idx:  211
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7456])
+batch_idx:  212
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7549])
+batch_idx:  213
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7795])
+batch_idx:  214
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([6573])
+batch_idx:  215
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([6310])
+batch_idx:  216
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7478])
+batch_idx:  217
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([6951])
+batch_idx:  218
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7747])
+batch_idx:  219
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7246])
+batch_idx:  220
+(374079488, 85097971712)
+Train [  0/  5]:   1%|          | 240/37941 [05:42<16:06:52,  1.54s/it, lr: 0.0000012 loss: 4.0938 data: 0.001 fwd: 0.636 bwd: 0.940 nce_samples: 89.000 nce_top1_acc: 0.081 nce_top5_acc: 0.284 nce_top10_acc: 0.297 nce_top50_acc: 0.851]28 Oct 23:36    INFO  
+--------------------------------------------------
+data['pos_input_ids'].size():  torch.Size([8324])
+batch_idx:  221
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7745])
+batch_idx:  222
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([8627])
+batch_idx:  223
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7085])
+batch_idx:  224
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7467])
+batch_idx:  225
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7466])
+batch_idx:  226
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7743])
+batch_idx:  227
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([6986])
+batch_idx:  228
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7259])
+batch_idx:  229
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7805])
+batch_idx:  230
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([8249])
+batch_idx:  231
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([8292])
+batch_idx:  232
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7582])
+batch_idx:  233
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([8172])
+batch_idx:  234
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7792])
+batch_idx:  235
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([6562])
+batch_idx:  236
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([9085])
+batch_idx:  237
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7339])
+batch_idx:  238
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7238])
+batch_idx:  239
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7249])
+batch_idx:  240
+(374079488, 85097971712)
+Train [  0/  5]:   1%|          | 260/37941 [06:14<16:13:26,  1.55s/it, lr: 0.0000013 loss: 4.1562 data: 0.001 fwd: 0.638 bwd: 0.946 nce_samples: 89.000 nce_top1_acc: 0.076 nce_top5_acc: 0.253 nce_top10_acc: 0.329 nce_top50_acc: 0.861]28 Oct 23:37    INFO  
+--------------------------------------------------
+data['pos_input_ids'].size():  torch.Size([6849])
+batch_idx:  241
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7515])
+batch_idx:  242
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([8862])
+batch_idx:  243
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7778])
+batch_idx:  244
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7332])
+batch_idx:  245
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([8085])
+batch_idx:  246
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7711])
+batch_idx:  247
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7362])
+batch_idx:  248
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7441])
+batch_idx:  249
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7889])
+batch_idx:  250
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([8311])
+batch_idx:  251
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7712])
+batch_idx:  252
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([6766])
+batch_idx:  253
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7412])
+batch_idx:  254
+28 Oct 23:37    INFO  i192714 not in self.env
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([8687])
+batch_idx:  255
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7671])
+batch_idx:  256
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7544])
+batch_idx:  257
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([8542])
+batch_idx:  258
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([6424])
+batch_idx:  259
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7620])
+batch_idx:  260
+(374079488, 85097971712)
+Train [  0/  5]:   1%|          | 280/37941 [06:45<16:15:46,  1.55s/it, lr: 0.0000014 loss: 4.2500 data: 0.001 fwd: 0.650 bwd: 0.957 nce_samples: 89.000 nce_top1_acc: 0.083 nce_top5_acc: 0.194 nce_top10_acc: 0.278 nce_top50_acc: 0.847]28 Oct 23:37    INFO  
+--------------------------------------------------
+data['pos_input_ids'].size():  torch.Size([8489])
+batch_idx:  261
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7919])
+batch_idx:  262
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7181])
+batch_idx:  263
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([6685])
+batch_idx:  264
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([8350])
+batch_idx:  265
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([8346])
+batch_idx:  266
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7607])
+batch_idx:  267
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7676])
+batch_idx:  268
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([6637])
+batch_idx:  269
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([8448])
+batch_idx:  270
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7095])
+batch_idx:  271
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7650])
+batch_idx:  272
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7648])
+batch_idx:  273
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7296])
+batch_idx:  274
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7425])
+batch_idx:  275
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([6762])
+batch_idx:  276
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7809])
+batch_idx:  277
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7924])
+batch_idx:  278
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([8470])
+batch_idx:  279
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([8007])
+batch_idx:  280
+(374079488, 85097971712)
+Train [  0/  5]:   1%|          | 300/37941 [07:16<16:15:41,  1.56s/it, lr: 0.0000015 loss: 4.1562 data: 0.001 fwd: 0.624 bwd: 0.926 nce_samples: 89.000 nce_top1_acc: 0.118 nce_top5_acc: 0.265 nce_top10_acc: 0.397 nce_top50_acc: 0.809]28 Oct 23:38    INFO  
+--------------------------------------------------
+data['pos_input_ids'].size():  torch.Size([7093])
+batch_idx:  281
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([8065])
+batch_idx:  282
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([8569])
+batch_idx:  283
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7729])
+batch_idx:  284
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7809])
+batch_idx:  285
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([8806])
+batch_idx:  286
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7460])
+batch_idx:  287
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7224])
+batch_idx:  288
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7312])
+batch_idx:  289
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7388])
+batch_idx:  290
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7306])
+batch_idx:  291
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7215])
+batch_idx:  292
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([8071])
+batch_idx:  293
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([8115])
+batch_idx:  294
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([8401])
+batch_idx:  295
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7348])
+batch_idx:  296
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7125])
+batch_idx:  297
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7054])
+batch_idx:  298
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7289])
+batch_idx:  299
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7505])
+batch_idx:  300
+(374079488, 85097971712)
+Train [  0/  5]:   1%|          | 320/37941 [07:47<16:14:08,  1.55s/it, lr: 0.0000016 loss: 4.3438 data: 0.001 fwd: 0.589 bwd: 0.895 nce_samples: 89.000 nce_top1_acc: 0.067 nce_top5_acc: 0.160 nce_top10_acc: 0.240 nce_top50_acc: 0.747]28 Oct 23:38    INFO  
+--------------------------------------------------
+data['pos_input_ids'].size():  torch.Size([7616])
+batch_idx:  301
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7493])
+batch_idx:  302
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([8010])
+batch_idx:  303
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7182])
+batch_idx:  304
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7321])
+batch_idx:  305
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([8857])
+batch_idx:  306
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7857])
+batch_idx:  307
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([6456])
+batch_idx:  308
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([8120])
+batch_idx:  309
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([9220])
+batch_idx:  310
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7772])
+batch_idx:  311
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7930])
+batch_idx:  312
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7360])
+batch_idx:  313
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([6848])
+batch_idx:  314
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([8415])
+batch_idx:  315
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7247])
+batch_idx:  316
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([6695])
+batch_idx:  317
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([6363])
+batch_idx:  318
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([6728])
+batch_idx:  319
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([8454])
+batch_idx:  320
+(374079488, 85097971712)
+Train [  0/  5]:   1%|          | 340/37941 [08:18<16:09:57,  1.55s/it, lr: 0.0000017 loss: 3.9844 data: 0.012 fwd: 0.670 bwd: 0.981 nce_samples: 89.000 nce_top1_acc: 0.083 nce_top5_acc: 0.306 nce_top10_acc: 0.417 nce_top50_acc: 0.903]28 Oct 23:39    INFO  
+--------------------------------------------------
+data['pos_input_ids'].size():  torch.Size([7395])
+batch_idx:  321
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([8256])
+batch_idx:  322
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7469])
+batch_idx:  323
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7611])
+batch_idx:  324
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7889])
+batch_idx:  325
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7403])
+batch_idx:  326
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7272])
+batch_idx:  327
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7912])
+batch_idx:  328
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7409])
+batch_idx:  329
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([8240])
+batch_idx:  330
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7932])
+batch_idx:  331
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7246])
+batch_idx:  332
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([6648])
+batch_idx:  333
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([6783])
+batch_idx:  334
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([6718])
+batch_idx:  335
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7703])
+batch_idx:  336
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7272])
+batch_idx:  337
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7359])
+batch_idx:  338
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7240])
+batch_idx:  339
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7676])
+batch_idx:  340
+(374079488, 85097971712)
+Train [  0/  5]:   1%|          | 360/37941 [08:48<16:07:10,  1.54s/it, lr: 0.0000018 loss: 4.1250 data: 0.001 fwd: 0.591 bwd: 0.905 nce_samples: 89.000 nce_top1_acc: 0.065 nce_top5_acc: 0.247 nce_top10_acc: 0.390 nce_top50_acc: 0.818]28 Oct 23:39    INFO  
+--------------------------------------------------
+data['pos_input_ids'].size():  torch.Size([7157])
+batch_idx:  341
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7869])
+batch_idx:  342
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7603])
+batch_idx:  343
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7079])
+batch_idx:  344
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7129])
+batch_idx:  345
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7446])
+batch_idx:  346
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([6889])
+batch_idx:  347
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7448])
+batch_idx:  348
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7063])
+batch_idx:  349
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7153])
+batch_idx:  350
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7252])
+batch_idx:  351
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7761])
+batch_idx:  352
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7072])
+batch_idx:  353
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7667])
+batch_idx:  354
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7551])
+batch_idx:  355
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([8320])
+batch_idx:  356
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7879])
+batch_idx:  357
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([8571])
+batch_idx:  358
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7080])
+batch_idx:  359
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7259])
+batch_idx:  360
+(374079488, 85097971712)
+Train [  0/  5]:   1%|          | 380/37941 [09:19<16:08:00,  1.55s/it, lr: 0.0000019 loss: 4.0625 data: 0.001 fwd: 0.627 bwd: 0.939 nce_samples: 89.000 nce_top1_acc: 0.055 nce_top5_acc: 0.233 nce_top10_acc: 0.370 nce_top50_acc: 0.904]28 Oct 23:40    INFO  
+--------------------------------------------------
+data['pos_input_ids'].size():  torch.Size([8148])
+batch_idx:  361
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([6704])
+batch_idx:  362
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7349])
+batch_idx:  363
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7920])
+batch_idx:  364
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([6879])
+batch_idx:  365
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7403])
+batch_idx:  366
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7942])
+batch_idx:  367
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([8017])
+batch_idx:  368
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([6956])
+batch_idx:  369
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7082])
+batch_idx:  370
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([6972])
+batch_idx:  371
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([8337])
+batch_idx:  372
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([6745])
+batch_idx:  373
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([8470])
+batch_idx:  374
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([8249])
+batch_idx:  375
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([8110])
+batch_idx:  376
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7905])
+batch_idx:  377
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([8290])
+batch_idx:  378
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7042])
+batch_idx:  379
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([8127])
+batch_idx:  380
+(374079488, 85097971712)
+Train [  0/  5]:   1%|          | 400/37941 [09:50<16:07:42,  1.55s/it, lr: 0.0000020 loss: 4.2188 data: 0.001 fwd: 0.649 bwd: 0.950 nce_samples: 89.000 nce_top1_acc: 0.076 nce_top5_acc: 0.242 nce_top10_acc: 0.348 nce_top50_acc: 0.848]28 Oct 23:40    INFO  
+--------------------------------------------------
+data['pos_input_ids'].size():  torch.Size([7275])
+batch_idx:  381
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7505])
+batch_idx:  382
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([6056])
+batch_idx:  383
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7697])
+batch_idx:  384
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7367])
+batch_idx:  385
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([8093])
+batch_idx:  386
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7503])
+batch_idx:  387
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7062])
+batch_idx:  388
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7889])
+batch_idx:  389
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7340])
+batch_idx:  390
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([8649])
+batch_idx:  391
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([9121])
+batch_idx:  392
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7763])
+batch_idx:  393
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([6730])
+batch_idx:  394
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([8135])
+batch_idx:  395
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7768])
+batch_idx:  396
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([8126])
+batch_idx:  397
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7423])
+batch_idx:  398
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7763])
+batch_idx:  399
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([8335])
+batch_idx:  400
+(374079488, 85097971712)
+Train [  0/  5]:   1%|          | 420/37941 [10:21<16:07:31,  1.55s/it, lr: 0.0000021 loss: 4.1562 data: 0.001 fwd: 0.632 bwd: 0.930 nce_samples: 89.000 nce_top1_acc: 0.045 nce_top5_acc: 0.242 nce_top10_acc: 0.379 nce_top50_acc: 0.864]28 Oct 23:41    INFO  
+--------------------------------------------------
+data['pos_input_ids'].size():  torch.Size([7392])
+batch_idx:  401
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([8799])
+batch_idx:  402
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([8246])
+batch_idx:  403
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7920])
+batch_idx:  404
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7018])
+batch_idx:  405
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([8116])
+batch_idx:  406
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7735])
+batch_idx:  407
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([6885])
+batch_idx:  408
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7508])
+batch_idx:  409
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7304])
+batch_idx:  410
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7027])
+batch_idx:  411
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7047])
+batch_idx:  412
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([6834])
+batch_idx:  413
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([5838])
+batch_idx:  414
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7205])
+batch_idx:  415
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7406])
+batch_idx:  416
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([6598])
+batch_idx:  417
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([6910])
+batch_idx:  418
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([6606])
+batch_idx:  419
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7454])
+batch_idx:  420
+(374079488, 85097971712)
+Train [  0/  5]:   1%|          | 440/37941 [10:52<16:05:39,  1.55s/it, lr: 0.0000022 loss: 3.9219 data: 0.001 fwd: 0.614 bwd: 0.919 nce_samples: 89.000 nce_top1_acc: 0.145 nce_top5_acc: 0.391 nce_top10_acc: 0.449 nce_top50_acc: 0.870]28 Oct 23:41    INFO  
+--------------------------------------------------
+data['pos_input_ids'].size():  torch.Size([6594])
+batch_idx:  421
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7088])
+batch_idx:  422
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([8093])
+batch_idx:  423
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7553])
+batch_idx:  424
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7979])
+batch_idx:  425
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7580])
+batch_idx:  426
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([8218])
+batch_idx:  427
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([8237])
+batch_idx:  428
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([6691])
+batch_idx:  429
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([6660])
+batch_idx:  430
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([6760])
+batch_idx:  431
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([8284])
+batch_idx:  432
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([6998])
+batch_idx:  433
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7017])
+batch_idx:  434
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7932])
+batch_idx:  435
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7403])
+batch_idx:  436
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7265])
+batch_idx:  437
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7644])
+batch_idx:  438
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7785])
+batch_idx:  439
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7902])
+batch_idx:  440
+(374079488, 85097971712)
+Train [  0/  5]:   1%|          | 460/37941 [11:23<16:03:36,  1.54s/it, lr: 0.0000023 loss: 4.2812 data: 0.001 fwd: 0.612 bwd: 0.914 nce_samples: 89.000 nce_top1_acc: 0.058 nce_top5_acc: 0.130 nce_top10_acc: 0.275 nce_top50_acc: 0.841]28 Oct 23:42    INFO  
+--------------------------------------------------
+data['pos_input_ids'].size():  torch.Size([7176])
+batch_idx:  441
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7266])
+batch_idx:  442
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([6617])
+batch_idx:  443
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7773])
+batch_idx:  444
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7046])
+batch_idx:  445
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7542])
+batch_idx:  446
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([8390])
+batch_idx:  447
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([6839])
+batch_idx:  448
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([6891])
+batch_idx:  449
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([6898])
+batch_idx:  450
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([6716])
+batch_idx:  451
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([6531])
+batch_idx:  452
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7025])
+batch_idx:  453
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7161])
+batch_idx:  454
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7122])
+batch_idx:  455
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([8018])
+batch_idx:  456
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([6576])
+batch_idx:  457
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7534])
+batch_idx:  458
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7203])
+batch_idx:  459
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7467])
+batch_idx:  460
+(374079488, 85097971712)
+Train [  0/  5]:   1%|▏         | 480/37941 [11:54<16:01:40,  1.54s/it, lr: 0.0000024 loss: 4.2812 data: 0.008 fwd: 0.603 bwd: 0.908 nce_samples: 89.000 nce_top1_acc: 0.089 nce_top5_acc: 0.203 nce_top10_acc: 0.392 nce_top50_acc: 0.810]28 Oct 23:42    INFO  
+--------------------------------------------------
+data['pos_input_ids'].size():  torch.Size([7799])
+batch_idx:  461
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([6548])
+batch_idx:  462
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([8264])
+batch_idx:  463
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7328])
+batch_idx:  464
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7573])
+batch_idx:  465
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([8472])
+batch_idx:  466
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7240])
+batch_idx:  467
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7335])
+batch_idx:  468
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7227])
+batch_idx:  469
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7103])
+batch_idx:  470
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7145])
+batch_idx:  471
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7958])
+batch_idx:  472
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7189])
+batch_idx:  473
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7465])
+batch_idx:  474
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7552])
+batch_idx:  475
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7637])
+batch_idx:  476
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7458])
+batch_idx:  477
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([6824])
+batch_idx:  478
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([6501])
+batch_idx:  479
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([6651])
+batch_idx:  480
+(374079488, 85097971712)
+Train [  0/  5]:   1%|▏         | 500/37941 [12:24<15:59:58,  1.54s/it, lr: 0.0000025 loss: 3.8906 data: 0.001 fwd: 0.554 bwd: 0.860 nce_samples: 89.000 nce_top1_acc: 0.075 nce_top5_acc: 0.375 nce_top10_acc: 0.512 nce_top50_acc: 0.850]28 Oct 23:43    INFO  
+--------------------------------------------------
+data['pos_input_ids'].size():  torch.Size([6047])
+batch_idx:  481
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([8038])
+batch_idx:  482
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7773])
+batch_idx:  483
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7085])
+batch_idx:  484
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7301])
+batch_idx:  485
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7748])
+batch_idx:  486
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([8090])
+batch_idx:  487
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7777])
+batch_idx:  488
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7671])
+batch_idx:  489
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([6233])
+batch_idx:  490
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([6825])
+batch_idx:  491
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7482])
+batch_idx:  492
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7331])
+batch_idx:  493
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([6896])
+batch_idx:  494
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([6678])
+batch_idx:  495
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([6892])
+batch_idx:  496
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7706])
+batch_idx:  497
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7448])
+batch_idx:  498
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7454])
+batch_idx:  499
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7831])
+batch_idx:  500
+(374079488, 85097971712)
+Train [  0/  5]:   1%|▏         | 520/37941 [12:55<16:00:28,  1.54s/it, lr: 0.0000026 loss: 3.9219 data: 0.001 fwd: 0.674 bwd: 0.981 nce_samples: 89.000 nce_top1_acc: 0.157 nce_top5_acc: 0.286 nce_top10_acc: 0.443 nce_top50_acc: 0.929]28 Oct 23:43    INFO  
+--------------------------------------------------
+data['pos_input_ids'].size():  torch.Size([6951])
+batch_idx:  501
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7841])
+batch_idx:  502
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7548])
+batch_idx:  503
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([6462])
+batch_idx:  504
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7085])
+batch_idx:  505
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([6973])
+batch_idx:  506
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([8239])
+batch_idx:  507
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7237])
+batch_idx:  508
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7337])
+batch_idx:  509
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7747])
+batch_idx:  510
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([8116])
+batch_idx:  511
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7188])
+batch_idx:  512
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7424])
+batch_idx:  513
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([6451])
+batch_idx:  514
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7751])
+batch_idx:  515
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([5894])
+batch_idx:  516
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7197])
+batch_idx:  517
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7914])
+batch_idx:  518
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7311])
+batch_idx:  519
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7281])
+batch_idx:  520
+(374079488, 85097971712)
+Train [  0/  5]:   1%|▏         | 540/37941 [13:25<15:53:32,  1.53s/it, lr: 0.0000027 loss: 4.0312 data: 0.001 fwd: 0.601 bwd: 0.916 nce_samples: 89.000 nce_top1_acc: 0.139 nce_top5_acc: 0.266 nce_top10_acc: 0.316 nce_top50_acc: 0.937]28 Oct 23:44    INFO  
+--------------------------------------------------
+data['pos_input_ids'].size():  torch.Size([6589])
+batch_idx:  521
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([8058])
+batch_idx:  522
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7094])
+batch_idx:  523
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7467])
+batch_idx:  524
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7759])
+batch_idx:  525
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7567])
+batch_idx:  526
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7293])
+batch_idx:  527
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([8097])
+batch_idx:  528
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7815])
+batch_idx:  529
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7239])
+batch_idx:  530
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7679])
+batch_idx:  531
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([8246])
+batch_idx:  532
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7182])
+batch_idx:  533
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7517])
+batch_idx:  534
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([6661])
+batch_idx:  535
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7886])
+batch_idx:  536
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([8434])
+batch_idx:  537
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7687])
+batch_idx:  538
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7590])
+batch_idx:  539
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7257])
+batch_idx:  540
+(374079488, 85097971712)
+Train [  0/  5]:   1%|▏         | 560/37941 [13:57<16:00:49,  1.54s/it, lr: 0.0000029 loss: 3.8594 data: 0.010 fwd: 0.594 bwd: 0.895 nce_samples: 89.000 nce_top1_acc: 0.159 nce_top5_acc: 0.304 nce_top10_acc: 0.435 nce_top50_acc: 0.870]28 Oct 23:44    INFO  
+--------------------------------------------------
+data['pos_input_ids'].size():  torch.Size([7738])
+batch_idx:  541
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([6542])
+batch_idx:  542
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7583])
+batch_idx:  543
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7801])
+batch_idx:  544
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7257])
+batch_idx:  545
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7179])
+batch_idx:  546
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([8596])
+batch_idx:  547
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7992])
+batch_idx:  548
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7942])
+batch_idx:  549
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([6219])
+batch_idx:  550
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7576])
+batch_idx:  551
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7081])
+batch_idx:  552
+28 Oct 23:45    INFO  i192714 not in self.env
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([8171])
+batch_idx:  553
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7430])
+batch_idx:  554
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7240])
+batch_idx:  555
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7680])
+batch_idx:  556
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([6909])
+batch_idx:  557
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([6850])
+batch_idx:  558
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7900])
+batch_idx:  559
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7671])
+batch_idx:  560
+(374079488, 85097971712)
+Train [  0/  5]:   2%|▏         | 580/37941 [14:27<15:57:45,  1.54s/it, lr: 0.0000030 loss: 4.0938 data: 0.001 fwd: 0.610 bwd: 0.915 nce_samples: 89.000 nce_top1_acc: 0.042 nce_top5_acc: 0.194 nce_top10_acc: 0.347 nce_top50_acc: 0.917]28 Oct 23:45    INFO  
+--------------------------------------------------
+data['pos_input_ids'].size():  torch.Size([8514])
+batch_idx:  561
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7502])
+batch_idx:  562
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([6824])
+batch_idx:  563
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([6946])
+batch_idx:  564
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7510])
+batch_idx:  565
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([6854])
+batch_idx:  566
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([8420])
+batch_idx:  567
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([5613])
+batch_idx:  568
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([8732])
+batch_idx:  569
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([8524])
+batch_idx:  570
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([6659])
+batch_idx:  571
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([8138])
+batch_idx:  572
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7762])
+batch_idx:  573
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([6598])
+batch_idx:  574
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7596])
+batch_idx:  575
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7902])
+batch_idx:  576
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([8042])
+batch_idx:  577
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7918])
+batch_idx:  578
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([6989])
+batch_idx:  579
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([6433])
+batch_idx:  580
+(374079488, 85097971712)
+Train [  0/  5]:   2%|▏         | 600/37941 [14:58<15:56:37,  1.54s/it, lr: 0.0000031 loss: 3.7812 data: 0.002 fwd: 0.618 bwd: 0.916 nce_samples: 89.000 nce_top1_acc: 0.200 nce_top5_acc: 0.357 nce_top10_acc: 0.443 nce_top50_acc: 0.886]28 Oct 23:45    INFO  
+--------------------------------------------------
+data['pos_input_ids'].size():  torch.Size([7557])
+batch_idx:  581
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([8485])
+batch_idx:  582
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7782])
+batch_idx:  583
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7694])
+batch_idx:  584
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([6855])
+batch_idx:  585
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7199])
+batch_idx:  586
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([6618])
+batch_idx:  587
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([6543])
+batch_idx:  588
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7623])
+batch_idx:  589
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([8274])
+batch_idx:  590
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7074])
+batch_idx:  591
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([8060])
+batch_idx:  592
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7353])
+batch_idx:  593
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7286])
+batch_idx:  594
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7656])
+batch_idx:  595
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7804])
+batch_idx:  596
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7261])
+batch_idx:  597
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7786])
+batch_idx:  598
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7261])
+batch_idx:  599
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7952])
+batch_idx:  600
+(374079488, 85097971712)
+Train [  0/  5]:   2%|▏         | 620/37941 [15:28<15:53:44,  1.53s/it, lr: 0.0000032 loss: 4.3750 data: 0.002 fwd: 0.610 bwd: 0.910 nce_samples: 89.000 nce_top1_acc: 0.013 nce_top5_acc: 0.169 nce_top10_acc: 0.234 nce_top50_acc: 0.792]28 Oct 23:46    INFO  
+--------------------------------------------------
+data['pos_input_ids'].size():  torch.Size([7203])
+batch_idx:  601
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7292])
+batch_idx:  602
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7779])
+batch_idx:  603
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([6753])
+batch_idx:  604
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([6818])
+batch_idx:  605
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([6779])
+batch_idx:  606
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([6899])
+batch_idx:  607
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7437])
+batch_idx:  608
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([8061])
+batch_idx:  609
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([6705])
+batch_idx:  610
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7649])
+batch_idx:  611
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7478])
+batch_idx:  612
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([6688])
+batch_idx:  613
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7965])
+batch_idx:  614
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7508])
+batch_idx:  615
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([8656])
+batch_idx:  616
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7632])
+batch_idx:  617
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([8697])
+batch_idx:  618
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7977])
+batch_idx:  619
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([6588])
+batch_idx:  620
+(374079488, 85097971712)
+Train [  0/  5]:   2%|▏         | 640/37941 [15:59<15:53:09,  1.53s/it, lr: 0.0000033 loss: 3.9844 data: 0.001 fwd: 0.603 bwd: 0.907 nce_samples: 89.000 nce_top1_acc: 0.039 nce_top5_acc: 0.273 nce_top10_acc: 0.416 nce_top50_acc: 0.883]28 Oct 23:46    INFO  
+--------------------------------------------------
+data['pos_input_ids'].size():  torch.Size([6967])
+batch_idx:  621
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7043])
+batch_idx:  622
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7383])
+batch_idx:  623
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7266])
+batch_idx:  624
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([8181])
+batch_idx:  625
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([6569])
+batch_idx:  626
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7155])
+batch_idx:  627
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7490])
+batch_idx:  628
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([8214])
+batch_idx:  629
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7631])
+batch_idx:  630
+28 Oct 23:47    INFO  i192714 not in self.env
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7933])
+batch_idx:  631
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7533])
+batch_idx:  632
+28 Oct 23:47    INFO  i192714 not in self.env
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7332])
+batch_idx:  633
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7547])
+batch_idx:  634
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7913])
+batch_idx:  635
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7741])
+batch_idx:  636
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([6700])
+batch_idx:  637
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([8108])
+batch_idx:  638
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([6689])
+batch_idx:  639
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7832])
+batch_idx:  640
+(374079488, 85097971712)
+Train [  0/  5]:   2%|▏         | 660/37941 [16:30<15:56:28,  1.54s/it, lr: 0.0000034 loss: 3.7812 data: 0.014 fwd: 0.644 bwd: 0.945 nce_samples: 89.000 nce_top1_acc: 0.155 nce_top5_acc: 0.380 nce_top10_acc: 0.451 nce_top50_acc: 0.930]28 Oct 23:47    INFO  
+--------------------------------------------------
+data['pos_input_ids'].size():  torch.Size([7881])
+batch_idx:  641
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7370])
+batch_idx:  642
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7354])
+batch_idx:  643
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([6587])
+batch_idx:  644
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([8143])
+batch_idx:  645
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([6419])
+batch_idx:  646
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([8585])
+batch_idx:  647
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7186])
+batch_idx:  648
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([8285])
+batch_idx:  649
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7645])
+batch_idx:  650
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([6895])
+batch_idx:  651
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([8453])
+batch_idx:  652
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([8063])
+batch_idx:  653
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7249])
+batch_idx:  654
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7268])
+batch_idx:  655
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([8181])
+batch_idx:  656
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7957])
+batch_idx:  657
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([6588])
+batch_idx:  658
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([6247])
+batch_idx:  659
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7254])
+batch_idx:  660
+(374079488, 85097971712)
+Train [  0/  5]:   2%|▏         | 680/37941 [17:01<15:56:57,  1.54s/it, lr: 0.0000035 loss: 4.2188 data: 0.003 fwd: 0.620 bwd: 0.934 nce_samples: 89.000 nce_top1_acc: 0.079 nce_top5_acc: 0.158 nce_top10_acc: 0.289 nce_top50_acc: 0.842]28 Oct 23:47    INFO  
+--------------------------------------------------
+data['pos_input_ids'].size():  torch.Size([7477])
+batch_idx:  661
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7057])
+batch_idx:  662
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7809])
+batch_idx:  663
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7294])
+batch_idx:  664
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7618])
+batch_idx:  665
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7218])
+batch_idx:  666
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7499])
+batch_idx:  667
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7042])
+batch_idx:  668
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7530])
+batch_idx:  669
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7055])
+batch_idx:  670
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([6939])
+batch_idx:  671
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7717])
+batch_idx:  672
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([6870])
+batch_idx:  673
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([6451])
+batch_idx:  674
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([8456])
+batch_idx:  675
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7339])
+batch_idx:  676
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7239])
+batch_idx:  677
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([6993])
+batch_idx:  678
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7763])
+batch_idx:  679
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7715])
+batch_idx:  680
+(374079488, 85097971712)
+Train [  0/  5]:   2%|▏         | 700/37941 [17:32<15:54:05,  1.54s/it, lr: 0.0000036 loss: 4.0625 data: 0.002 fwd: 0.615 bwd: 0.910 nce_samples: 89.000 nce_top1_acc: 0.071 nce_top5_acc: 0.257 nce_top10_acc: 0.457 nce_top50_acc: 0.900]28 Oct 23:48    INFO  
+--------------------------------------------------
+data['pos_input_ids'].size():  torch.Size([6490])
+batch_idx:  681
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([6853])
+batch_idx:  682
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([8343])
+batch_idx:  683
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7689])
+batch_idx:  684
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([6857])
+batch_idx:  685
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([8065])
+batch_idx:  686
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7229])
+batch_idx:  687
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7910])
+batch_idx:  688
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7671])
+batch_idx:  689
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7046])
+batch_idx:  690
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7585])
+batch_idx:  691
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([8004])
+batch_idx:  692
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7119])
+batch_idx:  693
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7575])
+batch_idx:  694
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([8231])
+batch_idx:  695
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7476])
+batch_idx:  696
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([6749])
+batch_idx:  697
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([8133])
+batch_idx:  698
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7925])
+batch_idx:  699
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7202])
+batch_idx:  700
+(374079488, 85097971712)
+Train [  0/  5]:   2%|▏         | 720/37941 [18:03<15:56:48,  1.54s/it, lr: 0.0000037 loss: 3.3281 data: 0.001 fwd: 0.594 bwd: 0.894 nce_samples: 89.000 nce_top1_acc: 0.266 nce_top5_acc: 0.506 nce_top10_acc: 0.582 nce_top50_acc: 0.949]28 Oct 23:48    INFO  
+--------------------------------------------------
+data['pos_input_ids'].size():  torch.Size([6933])
+batch_idx:  701
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7585])
+batch_idx:  702
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7292])
+batch_idx:  703
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7647])
+batch_idx:  704
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7974])
+batch_idx:  705
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7371])
+batch_idx:  706
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7088])
+batch_idx:  707
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7606])
+batch_idx:  708
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7241])
+batch_idx:  709
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7387])
+batch_idx:  710
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7475])
+batch_idx:  711
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7729])
+batch_idx:  712
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7211])
+batch_idx:  713
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([6992])
+batch_idx:  714
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([6088])
+batch_idx:  715
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7381])
+batch_idx:  716
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7001])
+batch_idx:  717
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7520])
+batch_idx:  718
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7707])
+batch_idx:  719
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([8057])
+batch_idx:  720
+(374079488, 85097971712)
+Train [  0/  5]:   2%|▏         | 740/37941 [18:34<16:01:24,  1.55s/it, lr: 0.0000038 loss: 3.9062 data: 0.001 fwd: 0.659 bwd: 0.961 nce_samples: 89.000 nce_top1_acc: 0.115 nce_top5_acc: 0.321 nce_top10_acc: 0.487 nce_top50_acc: 0.872]28 Oct 23:49    INFO  
+--------------------------------------------------
+data['pos_input_ids'].size():  torch.Size([7302])
+batch_idx:  721
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7983])
+batch_idx:  722
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7419])
+batch_idx:  723
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7895])
+batch_idx:  724
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7297])
+batch_idx:  725
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7977])
+batch_idx:  726
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7406])
+batch_idx:  727
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7300])
+batch_idx:  728
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7734])
+batch_idx:  729
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([6253])
+batch_idx:  730
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7615])
+batch_idx:  731
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7187])
+batch_idx:  732
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([8468])
+batch_idx:  733
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([8057])
+batch_idx:  734
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7175])
+batch_idx:  735
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7683])
+batch_idx:  736
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7149])
+batch_idx:  737
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([6858])
+batch_idx:  738
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7170])
+batch_idx:  739
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([6785])
+batch_idx:  740
+(374079488, 85097971712)
+Train [  0/  5]:   2%|▏         | 760/37941 [19:05<16:01:35,  1.55s/it, lr: 0.0000039 loss: 4.0312 data: 0.001 fwd: 0.611 bwd: 0.914 nce_samples: 89.000 nce_top1_acc: 0.080 nce_top5_acc: 0.293 nce_top10_acc: 0.387 nce_top50_acc: 0.933]28 Oct 23:49    INFO  
+--------------------------------------------------
+data['pos_input_ids'].size():  torch.Size([7035])
+batch_idx:  741
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7340])
+batch_idx:  742
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([8022])
+batch_idx:  743
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([8321])
+batch_idx:  744
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7976])
+batch_idx:  745
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([8699])
+batch_idx:  746
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7495])
+batch_idx:  747
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7561])
+batch_idx:  748
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7391])
+batch_idx:  749
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7578])
+batch_idx:  750
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([6323])
+batch_idx:  751
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([6342])
+batch_idx:  752
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7919])
+batch_idx:  753
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([6570])
+batch_idx:  754
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([8274])
+batch_idx:  755
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([6750])
+batch_idx:  756
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([6386])
+batch_idx:  757
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([6702])
+batch_idx:  758
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7882])
+batch_idx:  759
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([8604])
+batch_idx:  760
+(374079488, 85097971712)
+Train [  0/  5]:   2%|▏         | 780/37941 [19:36<16:02:33,  1.55s/it, lr: 0.0000040 loss: 4.3750 data: 0.001 fwd: 0.694 bwd: 1.004 nce_samples: 89.000 nce_top1_acc: 0.061 nce_top5_acc: 0.167 nce_top10_acc: 0.258 nce_top50_acc: 0.818]28 Oct 23:50    INFO  
+--------------------------------------------------
+data['pos_input_ids'].size():  torch.Size([8031])
+batch_idx:  761
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([6765])
+batch_idx:  762
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7306])
+batch_idx:  763
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([6237])
+batch_idx:  764
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7114])
+batch_idx:  765
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7584])
+batch_idx:  766
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([8610])
+batch_idx:  767
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7637])
+batch_idx:  768
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7045])
+batch_idx:  769
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7418])
+batch_idx:  770
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7798])
+batch_idx:  771
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([6902])
+batch_idx:  772
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7484])
+batch_idx:  773
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([6422])
+batch_idx:  774
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([8149])
+batch_idx:  775
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([6787])
+batch_idx:  776
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7615])
+batch_idx:  777
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7547])
+batch_idx:  778
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7833])
+batch_idx:  779
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([8498])
+batch_idx:  780
+(374079488, 85097971712)
+Train [  0/  5]:   2%|▏         | 800/37941 [20:07<16:01:27,  1.55s/it, lr: 0.0000041 loss: 3.9531 data: 0.001 fwd: 0.637 bwd: 0.938 nce_samples: 89.000 nce_top1_acc: 0.104 nce_top5_acc: 0.358 nce_top10_acc: 0.537 nce_top50_acc: 0.881]28 Oct 23:50    INFO  
+--------------------------------------------------
+data['pos_input_ids'].size():  torch.Size([7233])
+batch_idx:  781
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([6766])
+batch_idx:  782
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7797])
+batch_idx:  783
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7178])
+batch_idx:  784
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7028])
+batch_idx:  785
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([6831])
+batch_idx:  786
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7283])
+batch_idx:  787
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7045])
+batch_idx:  788
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7639])
+batch_idx:  789
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([8794])
+batch_idx:  790
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([8042])
+batch_idx:  791
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([6719])
+batch_idx:  792
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7930])
+batch_idx:  793
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7615])
+batch_idx:  794
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7686])
+batch_idx:  795
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7896])
+batch_idx:  796
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([6979])
+batch_idx:  797
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7167])
+batch_idx:  798
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7149])
+batch_idx:  799
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7319])
+batch_idx:  800
+(374079488, 85097971712)
+Train [  0/  5]:   2%|▏         | 820/37941 [20:39<16:01:08,  1.55s/it, lr: 0.0000042 loss: 4.0000 data: 0.002 fwd: 0.646 bwd: 0.958 nce_samples: 89.000 nce_top1_acc: 0.038 nce_top5_acc: 0.287 nce_top10_acc: 0.438 nce_top50_acc: 0.913]28 Oct 23:51    INFO  
+--------------------------------------------------
+data['pos_input_ids'].size():  torch.Size([6931])
+batch_idx:  801
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7781])
+batch_idx:  802
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7114])
+batch_idx:  803
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7351])
+batch_idx:  804
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7993])
+batch_idx:  805
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7812])
+batch_idx:  806
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7707])
+batch_idx:  807
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7438])
+batch_idx:  808
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([6332])
+batch_idx:  809
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([6215])
+batch_idx:  810
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7038])
+batch_idx:  811
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7242])
+batch_idx:  812
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7440])
+batch_idx:  813
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7506])
+batch_idx:  814
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([8338])
+batch_idx:  815
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([6788])
+batch_idx:  816
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7712])
+batch_idx:  817
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7765])
+batch_idx:  818
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7896])
+batch_idx:  819
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7229])
+batch_idx:  820
+(374079488, 85097971712)
+Train [  0/  5]:   2%|▏         | 840/37941 [21:09<15:59:22,  1.55s/it, lr: 0.0000043 loss: 4.3750 data: 0.001 fwd: 0.617 bwd: 0.922 nce_samples: 89.000 nce_top1_acc: 0.041 nce_top5_acc: 0.176 nce_top10_acc: 0.284 nce_top50_acc: 0.743]28 Oct 23:51    INFO  
+--------------------------------------------------
+data['pos_input_ids'].size():  torch.Size([7403])
+batch_idx:  821
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([8401])
+batch_idx:  822
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7620])
+batch_idx:  823
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([8012])
+batch_idx:  824
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([8329])
+batch_idx:  825
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7617])
+batch_idx:  826
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([6914])
+batch_idx:  827
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7083])
+batch_idx:  828
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7485])
+batch_idx:  829
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([8063])
+batch_idx:  830
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([6404])
+batch_idx:  831
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7263])
+batch_idx:  832
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([8574])
+batch_idx:  833
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7747])
+batch_idx:  834
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([8178])
+batch_idx:  835
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7726])
+batch_idx:  836
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7390])
+batch_idx:  837
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([8027])
+batch_idx:  838
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7731])
+batch_idx:  839
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([8048])
+batch_idx:  840
+(374079488, 85097971712)
+Train [  0/  5]:   2%|▏         | 860/37941 [21:41<16:03:22,  1.56s/it, lr: 0.0000044 loss: 3.9688 data: 0.001 fwd: 0.656 bwd: 0.958 nce_samples: 89.000 nce_top1_acc: 0.056 nce_top5_acc: 0.254 nce_top10_acc: 0.352 nce_top50_acc: 0.901]28 Oct 23:52    INFO  
+--------------------------------------------------
+data['pos_input_ids'].size():  torch.Size([6800])
+batch_idx:  841
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([6757])
+batch_idx:  842
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([6998])
+batch_idx:  843
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([6887])
+batch_idx:  844
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7706])
+batch_idx:  845
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7845])
+batch_idx:  846
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7818])
+batch_idx:  847
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7078])
+batch_idx:  848
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7266])
+batch_idx:  849
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7109])
+batch_idx:  850
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7572])
+batch_idx:  851
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7079])
+batch_idx:  852
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7583])
+batch_idx:  853
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7755])
+batch_idx:  854
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([8099])
+batch_idx:  855
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7008])
+batch_idx:  856
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7545])
+batch_idx:  857
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([8370])
+batch_idx:  858
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([8460])
+batch_idx:  859
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7987])
+batch_idx:  860
+(374079488, 85097971712)
+Train [  0/  5]:   2%|▏         | 880/37941 [22:12<16:00:06,  1.55s/it, lr: 0.0000045 loss: 3.6562 data: 0.001 fwd: 0.622 bwd: 0.918 nce_samples: 89.000 nce_top1_acc: 0.191 nce_top5_acc: 0.382 nce_top10_acc: 0.485 nce_top50_acc: 0.956]28 Oct 23:53    INFO  
+--------------------------------------------------
+data['pos_input_ids'].size():  torch.Size([7230])
+batch_idx:  861
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7814])
+batch_idx:  862
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7946])
+batch_idx:  863
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7762])
+batch_idx:  864
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7750])
+batch_idx:  865
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7960])
+batch_idx:  866
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7935])
+batch_idx:  867
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([6071])
+batch_idx:  868
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7407])
+batch_idx:  869
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7242])
+batch_idx:  870
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7221])
+batch_idx:  871
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7674])
+batch_idx:  872
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7820])
+batch_idx:  873
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7840])
+batch_idx:  874
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7794])
+batch_idx:  875
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7320])
+batch_idx:  876
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([6710])
+batch_idx:  877
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7677])
+batch_idx:  878
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7220])
+batch_idx:  879
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7382])
+batch_idx:  880
+(374079488, 85097971712)
+Train [  0/  5]:   2%|▏         | 900/37941 [22:43<15:58:25,  1.55s/it, lr: 0.0000046 loss: 3.4062 data: 0.003 fwd: 0.596 bwd: 0.899 nce_samples: 89.000 nce_top1_acc: 0.316 nce_top5_acc: 0.526 nce_top10_acc: 0.592 nce_top50_acc: 0.868]28 Oct 23:53    INFO  
+--------------------------------------------------
+data['pos_input_ids'].size():  torch.Size([7826])
+batch_idx:  881
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([6342])
+batch_idx:  882
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7489])
+batch_idx:  883
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7253])
+batch_idx:  884
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7288])
+batch_idx:  885
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7016])
+batch_idx:  886
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([8251])
+batch_idx:  887
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7032])
+batch_idx:  888
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([8146])
+batch_idx:  889
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([6745])
+batch_idx:  890
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([6741])
+batch_idx:  891
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7666])
+batch_idx:  892
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([8018])
+batch_idx:  893
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([8100])
+batch_idx:  894
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([8607])
+batch_idx:  895
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([5876])
+batch_idx:  896
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([8202])
+batch_idx:  897
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7243])
+batch_idx:  898
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7915])
+batch_idx:  899
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7072])
+batch_idx:  900
+(374079488, 85097971712)
+Train [  0/  5]:   2%|▏         | 920/37941 [23:14<15:54:39,  1.55s/it, lr: 0.0000047 loss: 3.8281 data: 0.002 fwd: 0.619 bwd: 0.922 nce_samples: 89.000 nce_top1_acc: 0.190 nce_top5_acc: 0.316 nce_top10_acc: 0.456 nce_top50_acc: 0.835]28 Oct 23:54    INFO  
+--------------------------------------------------
+data['pos_input_ids'].size():  torch.Size([7057])
+batch_idx:  901
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7920])
+batch_idx:  902
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7600])
+batch_idx:  903
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([6908])
+batch_idx:  904
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([8042])
+batch_idx:  905
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7107])
+batch_idx:  906
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([6863])
+batch_idx:  907
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7566])
+batch_idx:  908
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([6918])
+batch_idx:  909
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7055])
+batch_idx:  910
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7446])
+batch_idx:  911
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([6240])
+batch_idx:  912
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([6807])
+batch_idx:  913
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7342])
+batch_idx:  914
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7483])
+batch_idx:  915
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([8001])
+batch_idx:  916
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([8275])
+batch_idx:  917
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7933])
+batch_idx:  918
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7836])
+batch_idx:  919
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7968])
+batch_idx:  920
+(374079488, 85097971712)
+Train [  0/  5]:   2%|▏         | 940/37941 [23:44<15:53:23,  1.55s/it, lr: 0.0000049 loss: 3.9375 data: 0.002 fwd: 0.635 bwd: 0.922 nce_samples: 89.000 nce_top1_acc: 0.083 nce_top5_acc: 0.236 nce_top10_acc: 0.431 nce_top50_acc: 0.903]28 Oct 23:54    INFO  
+--------------------------------------------------
+data['pos_input_ids'].size():  torch.Size([8060])
+batch_idx:  921
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7395])
+batch_idx:  922
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7323])
+batch_idx:  923
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7406])
+batch_idx:  924
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7343])
+batch_idx:  925
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([6984])
+batch_idx:  926
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7051])
+batch_idx:  927
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([6939])
+batch_idx:  928
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7518])
+batch_idx:  929
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([6720])
+batch_idx:  930
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([6330])
+batch_idx:  931
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7952])
+batch_idx:  932
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7717])
+batch_idx:  933
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([6964])
+batch_idx:  934
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7424])
+batch_idx:  935
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([8236])
+batch_idx:  936
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([8327])
+batch_idx:  937
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7896])
+batch_idx:  938
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7504])
+batch_idx:  939
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7575])
+batch_idx:  940
+(374079488, 85097971712)
+Train [  0/  5]:   3%|▎         | 960/37941 [24:16<15:56:17,  1.55s/it, lr: 0.0000050 loss: 3.8125 data: 0.001 fwd: 0.608 bwd: 0.910 nce_samples: 89.000 nce_top1_acc: 0.179 nce_top5_acc: 0.333 nce_top10_acc: 0.462 nce_top50_acc: 0.859]28 Oct 23:55    INFO  
+--------------------------------------------------
+data['pos_input_ids'].size():  torch.Size([7068])
+batch_idx:  941
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7527])
+batch_idx:  942
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([8069])
+batch_idx:  943
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7217])
+batch_idx:  944
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7883])
+batch_idx:  945
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7629])
+batch_idx:  946
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7052])
+batch_idx:  947
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7650])
+batch_idx:  948
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7496])
+batch_idx:  949
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7577])
+batch_idx:  950
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7484])
+batch_idx:  951
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7316])
+batch_idx:  952
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([6553])
+batch_idx:  953
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7000])
+batch_idx:  954
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7361])
+batch_idx:  955
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7617])
+batch_idx:  956
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7564])
+batch_idx:  957
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([8079])
+batch_idx:  958
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([8003])
+batch_idx:  959
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([6233])
+batch_idx:  960
+(374079488, 85097971712)
+Train [  0/  5]:   3%|▎         | 980/37941 [24:47<15:56:03,  1.55s/it, lr: 0.0000051 loss: 3.6719 data: 0.001 fwd: 0.586 bwd: 0.888 nce_samples: 89.000 nce_top1_acc: 0.152 nce_top5_acc: 0.342 nce_top10_acc: 0.481 nce_top50_acc: 0.899]28 Oct 23:55    INFO  
+--------------------------------------------------
+data['pos_input_ids'].size():  torch.Size([7752])
+batch_idx:  961
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7745])
+batch_idx:  962
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([6654])
+batch_idx:  963
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([6767])
+batch_idx:  964
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([6768])
+batch_idx:  965
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([8097])
+batch_idx:  966
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([6720])
+batch_idx:  967
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([6861])
+batch_idx:  968
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7477])
+batch_idx:  969
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7655])
+batch_idx:  970
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7404])
+batch_idx:  971
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7200])
+batch_idx:  972
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([6692])
+batch_idx:  973
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7420])
+batch_idx:  974
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([8173])
+batch_idx:  975
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7157])
+batch_idx:  976
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([8658])
+batch_idx:  977
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7366])
+batch_idx:  978
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7065])
+batch_idx:  979
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7145])
+batch_idx:  980
+(374079488, 85097971712)
+Train [  0/  5]:   3%|▎         | 1000/37941 [25:17<15:52:55,  1.55s/it, lr: 0.0000052 loss: 3.8906 data: 0.001 fwd: 0.627 bwd: 0.926 nce_samples: 89.000 nce_top1_acc: 0.148 nce_top5_acc: 0.361 nce_top10_acc: 0.492 nce_top50_acc: 0.902]28 Oct 23:56    INFO  
+--------------------------------------------------
+data['pos_input_ids'].size():  torch.Size([7263])
+batch_idx:  981
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7909])
+batch_idx:  982
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([8329])
+batch_idx:  983
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7328])
+batch_idx:  984
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([8186])
+batch_idx:  985
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7662])
+batch_idx:  986
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7837])
+batch_idx:  987
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7633])
+batch_idx:  988
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7743])
+batch_idx:  989
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([8161])
+batch_idx:  990
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7625])
+batch_idx:  991
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([9177])
+batch_idx:  992
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([6680])
+batch_idx:  993
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([6548])
+batch_idx:  994
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([9250])
+batch_idx:  995
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7793])
+batch_idx:  996
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([6752])
+batch_idx:  997
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7915])
+batch_idx:  998
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7573])
+batch_idx:  999
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7816])
+batch_idx:  1000
+(374079488, 85097971712)
+Train [  0/  5]:   3%|▎         | 1020/37941 [25:49<15:59:06,  1.56s/it, lr: 0.0000053 loss: 4.0625 data: 0.001 fwd: 0.618 bwd: 0.917 nce_samples: 89.000 nce_top1_acc: 0.079 nce_top5_acc: 0.211 nce_top10_acc: 0.276 nce_top50_acc: 0.882]28 Oct 23:56    INFO  
+--------------------------------------------------
+data['pos_input_ids'].size():  torch.Size([7293])
+batch_idx:  1001
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([6936])
+batch_idx:  1002
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7162])
+batch_idx:  1003
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7688])
+batch_idx:  1004
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7801])
+batch_idx:  1005
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([8571])
+batch_idx:  1006
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([8216])
+batch_idx:  1007
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7630])
+batch_idx:  1008
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([8056])
+batch_idx:  1009
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([6429])
+batch_idx:  1010
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7093])
+batch_idx:  1011
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7015])
+batch_idx:  1012
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([6957])
+batch_idx:  1013
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([8094])
+batch_idx:  1014
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7050])
+batch_idx:  1015
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7464])
+batch_idx:  1016
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7528])
+batch_idx:  1017
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([6779])
+batch_idx:  1018
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([6959])
+batch_idx:  1019
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7153])
+batch_idx:  1020
+(374079488, 85097971712)
+Train [  0/  5]:   3%|▎         | 1040/37941 [26:20<15:55:09,  1.55s/it, lr: 0.0000054 loss: 3.9688 data: 0.001 fwd: 0.594 bwd: 0.892 nce_samples: 89.000 nce_top1_acc: 0.072 nce_top5_acc: 0.304 nce_top10_acc: 0.391 nce_top50_acc: 0.841]28 Oct 23:57    INFO  
+--------------------------------------------------
+data['pos_input_ids'].size():  torch.Size([7636])
+batch_idx:  1021
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7317])
+batch_idx:  1022
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7909])
+batch_idx:  1023
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7496])
+batch_idx:  1024
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([6875])
+batch_idx:  1025
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7245])
+batch_idx:  1026
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7595])
+batch_idx:  1027
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7842])
+batch_idx:  1028
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([6997])
+batch_idx:  1029
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([6689])
+batch_idx:  1030
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7156])
+batch_idx:  1031
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([8034])
+batch_idx:  1032
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7243])
+batch_idx:  1033
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7375])
+batch_idx:  1034
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([6786])
+batch_idx:  1035
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([6327])
+batch_idx:  1036
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7484])
+batch_idx:  1037
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7341])
+batch_idx:  1038
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7225])
+batch_idx:  1039
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7687])
+batch_idx:  1040
+(374079488, 85097971712)
+Train [  0/  5]:   3%|▎         | 1060/37941 [26:51<15:52:40,  1.55s/it, lr: 0.0000055 loss: 3.4062 data: 0.001 fwd: 0.637 bwd: 0.939 nce_samples: 89.000 nce_top1_acc: 0.195 nce_top5_acc: 0.455 nce_top10_acc: 0.545 nce_top50_acc: 0.948]28 Oct 23:57    INFO  
+--------------------------------------------------
+data['pos_input_ids'].size():  torch.Size([7714])
+batch_idx:  1041
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([6965])
+batch_idx:  1042
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7626])
+batch_idx:  1043
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([6813])
+batch_idx:  1044
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7500])
+batch_idx:  1045
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7235])
+batch_idx:  1046
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7783])
+batch_idx:  1047
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7229])
+batch_idx:  1048
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7197])
+batch_idx:  1049
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7226])
+batch_idx:  1050
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([8122])
+batch_idx:  1051
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([6658])
+batch_idx:  1052
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([6130])
+batch_idx:  1053
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7645])
+batch_idx:  1054
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7606])
+batch_idx:  1055
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([6706])
+batch_idx:  1056
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7956])
+batch_idx:  1057
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7218])
+batch_idx:  1058
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7996])
+batch_idx:  1059
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7146])
+batch_idx:  1060
+(374079488, 85097971712)
+Train [  0/  5]:   3%|▎         | 1080/37941 [27:22<15:49:54,  1.55s/it, lr: 0.0000056 loss: 3.9531 data: 0.002 fwd: 0.624 bwd: 0.927 nce_samples: 89.000 nce_top1_acc: 0.143 nce_top5_acc: 0.260 nce_top10_acc: 0.403 nce_top50_acc: 0.948]28 Oct 23:58    INFO  
+--------------------------------------------------
+data['pos_input_ids'].size():  torch.Size([7487])
+batch_idx:  1061
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([8067])
+batch_idx:  1062
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7695])
+batch_idx:  1063
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7374])
+batch_idx:  1064
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7724])
+batch_idx:  1065
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7722])
+batch_idx:  1066
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7467])
+batch_idx:  1067
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([8217])
+batch_idx:  1068
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7232])
+batch_idx:  1069
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7624])
+batch_idx:  1070
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7369])
+batch_idx:  1071
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7669])
+batch_idx:  1072
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7164])
+batch_idx:  1073
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([8635])
+batch_idx:  1074
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7453])
+batch_idx:  1075
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([6883])
+batch_idx:  1076
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7089])
+batch_idx:  1077
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([8600])
+batch_idx:  1078
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7647])
+batch_idx:  1079
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7324])
+batch_idx:  1080
+(374079488, 85097971712)
+Train [  0/  5]:   3%|▎         | 1100/37941 [27:52<15:47:23,  1.54s/it, lr: 0.0000057 loss: 3.9688 data: 0.011 fwd: 0.617 bwd: 0.920 nce_samples: 89.000 nce_top1_acc: 0.092 nce_top5_acc: 0.277 nce_top10_acc: 0.523 nce_top50_acc: 0.846]28 Oct 23:58    INFO  
+--------------------------------------------------
+data['pos_input_ids'].size():  torch.Size([7803])
+batch_idx:  1081
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([6549])
+batch_idx:  1082
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([6692])
+batch_idx:  1083
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([6888])
+batch_idx:  1084
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([6542])
+batch_idx:  1085
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([8234])
+batch_idx:  1086
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([8128])
+batch_idx:  1087
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([6957])
+batch_idx:  1088
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([8397])
+batch_idx:  1089
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([6676])
+batch_idx:  1090
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7827])
+batch_idx:  1091
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7391])
+batch_idx:  1092
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7779])
+batch_idx:  1093
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7440])
+batch_idx:  1094
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7765])
+batch_idx:  1095
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([8186])
+batch_idx:  1096
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([6484])
+batch_idx:  1097
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([8344])
+batch_idx:  1098
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7265])
+batch_idx:  1099
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([8435])
+batch_idx:  1100
+(374079488, 85097971712)
+Train [  0/  5]:   3%|▎         | 1120/37941 [28:23<15:48:13,  1.55s/it, lr: 0.0000058 loss: 3.9531 data: 0.001 fwd: 0.659 bwd: 0.964 nce_samples: 89.000 nce_top1_acc: 0.056 nce_top5_acc: 0.225 nce_top10_acc: 0.408 nce_top50_acc: 0.958]28 Oct 23:59    INFO  
+--------------------------------------------------
+data['pos_input_ids'].size():  torch.Size([7621])
+batch_idx:  1101
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7400])
+batch_idx:  1102
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7734])
+batch_idx:  1103
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([8108])
+batch_idx:  1104
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([6353])
+batch_idx:  1105
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7728])
+batch_idx:  1106
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7468])
+batch_idx:  1107
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7436])
+batch_idx:  1108
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7376])
+batch_idx:  1109
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7122])
+batch_idx:  1110
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7721])
+batch_idx:  1111
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7758])
+batch_idx:  1112
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7533])
+batch_idx:  1113
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7782])
+batch_idx:  1114
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([6369])
+batch_idx:  1115
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7976])
+batch_idx:  1116
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7831])
+batch_idx:  1117
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7264])
+batch_idx:  1118
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7271])
+batch_idx:  1119
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7661])
+batch_idx:  1120
+(374079488, 85097971712)
+Train [  0/  5]:   3%|▎         | 1140/37941 [28:55<15:50:59,  1.55s/it, lr: 0.0000059 loss: 3.9375 data: 0.014 fwd: 0.634 bwd: 0.944 nce_samples: 89.000 nce_top1_acc: 0.136 nce_top5_acc: 0.379 nce_top10_acc: 0.500 nce_top50_acc: 0.864]28 Oct 23:59    INFO  
+--------------------------------------------------
+data['pos_input_ids'].size():  torch.Size([6524])
+batch_idx:  1121
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7922])
+batch_idx:  1122
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([6428])
+batch_idx:  1123
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7736])
+batch_idx:  1124
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7750])
+batch_idx:  1125
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7714])
+batch_idx:  1126
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7536])
+batch_idx:  1127
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([6896])
+batch_idx:  1128
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7934])
+batch_idx:  1129
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7543])
+batch_idx:  1130
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([8131])
+batch_idx:  1131
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7421])
+batch_idx:  1132
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([6461])
+batch_idx:  1133
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7245])
+batch_idx:  1134
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([6744])
+batch_idx:  1135
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7959])
+batch_idx:  1136
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7504])
+batch_idx:  1137
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([6768])
+batch_idx:  1138
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7866])
+batch_idx:  1139
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([6714])
+batch_idx:  1140
+(374079488, 85097971712)
+Train [  0/  5]:   3%|▎         | 1160/37941 [29:25<15:47:59,  1.55s/it, lr: 0.0000060 loss: 4.0625 data: 0.006 fwd: 0.567 bwd: 0.872 nce_samples: 89.000 nce_top1_acc: 0.086 nce_top5_acc: 0.286 nce_top10_acc: 0.429 nce_top50_acc: 0.829]29 Oct 00:00    INFO  
+--------------------------------------------------
+data['pos_input_ids'].size():  torch.Size([7350])
+batch_idx:  1141
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7365])
+batch_idx:  1142
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([8083])
+batch_idx:  1143
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7124])
+batch_idx:  1144
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([8074])
+batch_idx:  1145
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([6234])
+batch_idx:  1146
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([6766])
+batch_idx:  1147
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7648])
+batch_idx:  1148
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7741])
+batch_idx:  1149
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([6579])
+batch_idx:  1150
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([6967])
+batch_idx:  1151
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7853])
+batch_idx:  1152
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([8420])
+batch_idx:  1153
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7538])
+batch_idx:  1154
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([8402])
+batch_idx:  1155
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([6301])
+batch_idx:  1156
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7040])
+batch_idx:  1157
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7718])
+batch_idx:  1158
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7685])
+batch_idx:  1159
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7771])
+batch_idx:  1160
+(374079488, 85097971712)
+Train [  0/  5]:   3%|▎         | 1180/37941 [29:56<15:43:30,  1.54s/it, lr: 0.0000061 loss: 3.4844 data: 0.001 fwd: 0.647 bwd: 0.950 nce_samples: 89.000 nce_top1_acc: 0.209 nce_top5_acc: 0.418 nce_top10_acc: 0.642 nce_top50_acc: 0.925]29 Oct 00:00    INFO  
+--------------------------------------------------
+data['pos_input_ids'].size():  torch.Size([6464])
+batch_idx:  1161
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7034])
+batch_idx:  1162
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([6904])
+batch_idx:  1163
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([8245])
+batch_idx:  1164
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7598])
+batch_idx:  1165
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([6126])
+batch_idx:  1166
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7041])
+batch_idx:  1167
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7813])
+batch_idx:  1168
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([8203])
+batch_idx:  1169
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7583])
+batch_idx:  1170
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7590])
+batch_idx:  1171
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([6590])
+batch_idx:  1172
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([6395])
+batch_idx:  1173
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7062])
+batch_idx:  1174
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([6955])
+batch_idx:  1175
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7428])
+batch_idx:  1176
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([6843])
+batch_idx:  1177
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7254])
+batch_idx:  1178
+29 Oct 00:01    INFO  i192714 not in self.env
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7411])
+batch_idx:  1179
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([6721])
+batch_idx:  1180
+(374079488, 85097971712)
+Train [  0/  5]:   3%|▎         | 1200/37941 [30:26<15:37:39,  1.53s/it, lr: 0.0000062 loss: 3.8281 data: 0.001 fwd: 0.568 bwd: 0.867 nce_samples: 89.000 nce_top1_acc: 0.115 nce_top5_acc: 0.359 nce_top10_acc: 0.462 nce_top50_acc: 0.910]29 Oct 00:01    INFO  
+--------------------------------------------------
+data['pos_input_ids'].size():  torch.Size([8116])
+batch_idx:  1181
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7386])
+batch_idx:  1182
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7384])
+batch_idx:  1183
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7087])
+batch_idx:  1184
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7931])
+batch_idx:  1185
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([6518])
+batch_idx:  1186
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([8282])
+batch_idx:  1187
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7532])
+batch_idx:  1188
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7713])
+batch_idx:  1189
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7724])
+batch_idx:  1190
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7878])
+batch_idx:  1191
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7501])
+batch_idx:  1192
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([8040])
+batch_idx:  1193
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([6981])
+batch_idx:  1194
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([6969])
+batch_idx:  1195
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([6849])
+batch_idx:  1196
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7387])
+batch_idx:  1197
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([6556])
+batch_idx:  1198
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([6745])
+batch_idx:  1199
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7345])
+batch_idx:  1200
+(374079488, 85097971712)
+Train [  0/  5]:   3%|▎         | 1220/37941 [30:57<15:39:07,  1.53s/it, lr: 0.0000063 loss: 3.7812 data: 0.002 fwd: 0.620 bwd: 0.926 nce_samples: 89.000 nce_top1_acc: 0.123 nce_top5_acc: 0.369 nce_top10_acc: 0.477 nce_top50_acc: 0.954]29 Oct 00:01    INFO  
+--------------------------------------------------
+data['pos_input_ids'].size():  torch.Size([7545])
+batch_idx:  1201
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7383])
+batch_idx:  1202
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([8193])
+batch_idx:  1203
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7873])
+batch_idx:  1204
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7149])
+batch_idx:  1205
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7482])
+batch_idx:  1206
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7841])
+batch_idx:  1207
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7232])
+batch_idx:  1208
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7979])
+batch_idx:  1209
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7065])
+batch_idx:  1210
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([8014])
+batch_idx:  1211
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7787])
+batch_idx:  1212
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7426])
+batch_idx:  1213
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7384])
+batch_idx:  1214
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7399])
+batch_idx:  1215
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7645])
+batch_idx:  1216
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([6897])
+batch_idx:  1217
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7843])
+batch_idx:  1218
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7723])
+batch_idx:  1219
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7610])
+batch_idx:  1220
+(374079488, 85097971712)
+Train [  0/  5]:   3%|▎         | 1240/37941 [31:28<15:40:56,  1.54s/it, lr: 0.0000064 loss: 3.6875 data: 0.001 fwd: 0.607 bwd: 0.912 nce_samples: 89.000 nce_top1_acc: 0.145 nce_top5_acc: 0.319 nce_top10_acc: 0.507 nce_top50_acc: 0.913]29 Oct 00:02    INFO  
+--------------------------------------------------
+data['pos_input_ids'].size():  torch.Size([7455])
+batch_idx:  1221
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7609])
+batch_idx:  1222
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7017])
+batch_idx:  1223
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7609])
+batch_idx:  1224
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7171])
+batch_idx:  1225
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7103])
+batch_idx:  1226
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([6886])
+batch_idx:  1227
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7392])
+batch_idx:  1228
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7815])
+batch_idx:  1229
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7093])
+batch_idx:  1230
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([6761])
+batch_idx:  1231
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([8076])
+batch_idx:  1232
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7710])
+batch_idx:  1233
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([6925])
+batch_idx:  1234
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7949])
+batch_idx:  1235
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7691])
+batch_idx:  1236
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7678])
+batch_idx:  1237
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7020])
+batch_idx:  1238
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7529])
+batch_idx:  1239
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([6501])
+batch_idx:  1240
+(374079488, 85097971712)
+Train [  0/  5]:   3%|▎         | 1260/37941 [31:59<15:40:39,  1.54s/it, lr: 0.0000065 loss: 3.8125 data: 0.004 fwd: 0.562 bwd: 0.858 nce_samples: 89.000 nce_top1_acc: 0.138 nce_top5_acc: 0.338 nce_top10_acc: 0.550 nce_top50_acc: 0.900]29 Oct 00:02    INFO  
+--------------------------------------------------
+data['pos_input_ids'].size():  torch.Size([7515])
+batch_idx:  1241
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([6320])
+batch_idx:  1242
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7876])
+batch_idx:  1243
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7574])
+batch_idx:  1244
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7043])
+batch_idx:  1245
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7467])
+batch_idx:  1246
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7222])
+batch_idx:  1247
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7816])
+batch_idx:  1248
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([6761])
+batch_idx:  1249
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7858])
+batch_idx:  1250
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7313])
+batch_idx:  1251
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([8343])
+batch_idx:  1252
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7856])
+batch_idx:  1253
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([6895])
+batch_idx:  1254
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7910])
+batch_idx:  1255
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([6401])
+batch_idx:  1256
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([8202])
+batch_idx:  1257
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7172])
+batch_idx:  1258
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7702])
+batch_idx:  1259
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([8989])
+batch_idx:  1260
+(374079488, 85097971712)
+Train [  0/  5]:   3%|▎         | 1280/37941 [32:30<15:46:30,  1.55s/it, lr: 0.0000066 loss: 3.8281 data: 0.001 fwd: 0.702 bwd: 1.017 nce_samples: 89.000 nce_top1_acc: 0.082 nce_top5_acc: 0.260 nce_top10_acc: 0.479 nce_top50_acc: 0.918]29 Oct 00:03    INFO  
+--------------------------------------------------
+data['pos_input_ids'].size():  torch.Size([8403])
+batch_idx:  1261
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7751])
+batch_idx:  1262
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([8788])
+batch_idx:  1263
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7966])
+batch_idx:  1264
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7783])
+batch_idx:  1265
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([6784])
+batch_idx:  1266
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([6052])
+batch_idx:  1267
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([6471])
+batch_idx:  1268
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([8270])
+batch_idx:  1269
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7617])
+batch_idx:  1270
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7258])
+batch_idx:  1271
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7124])
+batch_idx:  1272
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([8003])
+batch_idx:  1273
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7192])
+batch_idx:  1274
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([6933])
+batch_idx:  1275
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([6574])
+batch_idx:  1276
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7433])
+batch_idx:  1277
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7037])
+batch_idx:  1278
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7561])
+batch_idx:  1279
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([8049])
+batch_idx:  1280
+(374079488, 85097971712)
+Train [  0/  5]:   3%|▎         | 1300/37941 [33:01<15:47:42,  1.55s/it, lr: 0.0000068 loss: 3.8750 data: 0.001 fwd: 0.625 bwd: 0.928 nce_samples: 89.000 nce_top1_acc: 0.120 nce_top5_acc: 0.347 nce_top10_acc: 0.480 nce_top50_acc: 0.880]29 Oct 00:03    INFO  
+--------------------------------------------------
+data['pos_input_ids'].size():  torch.Size([6136])
+batch_idx:  1281
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([6799])
+batch_idx:  1282
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7760])
+batch_idx:  1283
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7610])
+batch_idx:  1284
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7277])
+batch_idx:  1285
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7284])
+batch_idx:  1286
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([8123])
+batch_idx:  1287
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([6786])
+batch_idx:  1288
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([6698])
+batch_idx:  1289
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([6981])
+batch_idx:  1290
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7182])
+batch_idx:  1291
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7501])
+batch_idx:  1292
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7127])
+batch_idx:  1293
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([8156])
+batch_idx:  1294
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7499])
+batch_idx:  1295
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7019])
+batch_idx:  1296
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7281])
+batch_idx:  1297
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7411])
+batch_idx:  1298
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([7245])
+batch_idx:  1299
+(374079488, 85097971712)
+data['pos_input_ids'].size():  torch.Size([6755])
+batch_idx:  1300
+(374079488, 85097971712)
+Train [  0/  5]:   3%|▎         | 1320/37941 [33:32<15:45:52,  1.55s/it, lr: 0.0000069 loss: 4.1250 data: 0.001 fwd: 0.595 bwd: 0.903 nce_samples: 89.000 nce_top1_acc: 0.099 nce_top5_acc: 0.183 nce_top10_acc: 0.338 nce_top50_acc: 0.873]29 Oct 00:04    INFO  
+--------------------------------------------------
+data['pos_input_ids'].size():  torch.Size([7591])
+batch_idx:  1301
+Train [  0/  5]:   3%|▎         | 1320/37941 [33:34<15:31:37,  1.53s/it, lr: 0.0000069 loss: 4.1250 data: 0.001 fwd: 0.595 bwd: 0.903 nce_samples: 89.000 nce_top1_acc: 0.099 nce_top5_acc: 0.183 nce_top10_acc: 0.338 nce_top50_acc: 0.873]
+start_time: 2024-10-28T23:30:17
+Job Ends
